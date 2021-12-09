@@ -1,7 +1,7 @@
 from typing import List
 
-from channel import Channel
-from team_member import TeamMember
+from .channel import Channel
+from .team_member import TeamMember
 
 
 class Team:

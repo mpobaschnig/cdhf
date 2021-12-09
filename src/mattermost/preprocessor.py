@@ -2,11 +2,11 @@ import logging
 import json
 from typing import Dict, List, Optional
 
-from channel import Channel
-from channel_member import ChannelMember
-from channel_member_history_entry import ChannelMemberHistoryEntry
-from team_member import TeamMember
-from team import Team
+from .channel import Channel
+from .channel_member import ChannelMember
+from .channel_member_history_entry import ChannelMemberHistoryEntry
+from .team_member import TeamMember
+from .team import Team
 
 
 class Preprocessor:

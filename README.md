@@ -1,11 +1,40 @@
-# master-thesis
+# CERN Community Detection Framework 
 
-Source code related to the master thesis.
+## Mattermost
 
-## Run
+Clone the repository 
 
-### Mattermost
+```
+git clone https://github.com/mpobaschnig/c2df
+```
 
-`mmdata.json`should be in the `src/mattermost/input/` folder.
+Create the jupyter notebook file in the root level directory, and put `mmdata.json` in `input/` directory.
 
-Go into `src/mattermost/` directory and execute `python main.py` for the Mattermost code.
+In the end it should look like this:
+```
+.
+├── c2df
+│  ├── README.md
+│  └── src
+│     └── mattermost
+│        ├── channel.py
+│        ├── channel_member.py
+│        ├── channel_member_history_entry.py
+│        ├── preprocessor.py
+│        ├── team.py
+│        └── team_member.py
+├── input
+│  └── mmdata.json
+└── main.ipynb
+```
+
+Then include the files in the notebook from the root level
+
+```python
+from c2df.src.mattermost.preprocessor import Preprocessor
+from c2df.src.mattermost.channel import Channel
+from c2df.src.mattermost.channel_member import ChannelMember
+from c2df.src.mattermost.channel_member_history_entry import ChannelMemberHistoryEntry
+from c2df.src.mattermost.team_member import TeamMember
+from c2df.src.mattermost.team import Team
+```

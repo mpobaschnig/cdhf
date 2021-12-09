@@ -1,7 +1,7 @@
 from typing import List, Optional
 
-from channel_member import ChannelMember
-from channel_member_history_entry import ChannelMemberHistoryEntry
+from .channel_member import ChannelMember
+from .channel_member_history_entry import ChannelMemberHistoryEntry
 
 
 class Channel:
