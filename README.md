@@ -13,7 +13,7 @@ Create the jupyter notebook file in the root level directory, and put `mmdata.js
 In the end it should look like this:
 ```
 .
-├── c2df
+├── cdhf
 │  ├── README.md
 │  └── src
 │     └── mattermost
@@ -31,10 +31,11 @@ In the end it should look like this:
 Then include the files in the notebook from the root level
 
 ```python
-from c2df.src.mattermost.preprocessor import Preprocessor
-from c2df.src.mattermost.channel import Channel
-from c2df.src.mattermost.channel_member import ChannelMember
-from c2df.src.mattermost.channel_member_history_entry import ChannelMemberHistoryEntry
-from c2df.src.mattermost.team_member import TeamMember
-from c2df.src.mattermost.team import Team
+from cdhf.src.mattermost.prepr
+ocessor import Preprocessor
+from cdhf.src.mattermost.channel import Channel
+from cdhf.src.mattermost.channel_member import ChannelMember
+from cdhf.src.mattermost.channel_member_history_entry import ChannelMemberHistoryEntry
+from cdhf.src.mattermost.team_member import TeamMember
+from cdhf.src.mattermost.team import Team
 ```
