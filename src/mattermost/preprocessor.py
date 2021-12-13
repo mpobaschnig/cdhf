@@ -7,6 +7,7 @@ from .channel_member import ChannelMember
 from .channel_member_history_entry import ChannelMemberHistoryEntry
 from .team_member import TeamMember
 from .team import Team
+from .user_data import UserData
 
 
 class Preprocessor:
@@ -17,6 +18,7 @@ class Preprocessor:
     channel_member_histories: List[ChannelMemberHistoryEntry]
     team_members: List[TeamMember]
     teams: List[Team]
+    users: Dict[str, UserData]
 
     def __init__(self, data_file_path: str):
         with open(data_file_path) as f:
@@ -26,6 +28,7 @@ class Preprocessor:
         self.channel_member_histories = []
         self.team_members = []
         self.teams = []
+        self.users = {}
 
     def load_all(self) -> None:
         """
@@ -36,6 +39,7 @@ class Preprocessor:
         self.load_channel_members()
         self.load_channel_member_histories()
         self.load_team_members()
+        self.load_users()
 
         self.add_channel_member_history_to_channels()
 
@@ -104,6 +108,18 @@ class Preprocessor:
                 delete_at=team_member["DeleteAt"]
             ))
 
+    def load_users(self) -> None:
+        """
+        Load every user from json file.
+        """
+        users = self.contents["users"]
+
+        for user in users:
+            self.users[user] = UserData(
+                building=users[user]["building"],
+                org_unit=users[user]["orgUnit"]
+            )
+
     def add_channel_member_history_to_channels(self):
         """
         Add the history of channel members joining/leaving
@@ -139,6 +155,17 @@ class Preprocessor:
             if channel_member_list is None:
                 channel_member_list = []
 
+            user_data: UserData = self.users.get(channel_member.user_id)
+            if user_data is None:
+                # Since some users might be associated with CERN, but do not reside
+                # at CERN, they neither have 'building' or 'orgUnit' values. Hence,
+                # just treat them as 'external'.
+                channel_member.building = "external"
+                channel_member.org_unit = "external"
+            else:
+                channel_member.building = user_data.building
+                channel_member.org_unit = user_data.org_unit
+
             channel_member_list.append(channel_member)
             channel_member_map[channel_member.channel_id] = channel_member_list
 
@@ -170,6 +197,17 @@ class Preprocessor:
 
             if team_member_list is None:
                 team_member_list = []
+
+            user_data: UserData = self.users.get(team_member.user_id)
+            if user_data is None:
+                # Since some users might be associated with CERN, but do not reside
+                # at CERN, they neither have 'building' or 'orgUnit' values. Hence,
+                # just treat them as 'external'.
+                team_member.building = "external"
+                team_member.org_unit = "external"
+            else:
+                team_member.building = user_data.building
+                team_member.org_unit = user_data.org_unit
 
             team_member_list.append(team_member)
 
