@@ -21,18 +21,18 @@ class Preprocessor:
     teams: List[Team]
     users: Dict[int, UserData]
 
-    building_smap_c: int
-    building_smap: Dict[str, int]
-    channel_id_subst_map_c: int
-    channel_id_subst_map: Dict[str, int]
-    creator_id_smap_c: int
-    creator_id_smap: Dict[str, int]
-    org_unit_smap_c: int
-    org_unit_smap: Dict[str, int]
-    team_id_smap_c: int
-    team_id_smap: Dict[str, int]
-    user_id_smap_c: int
-    user_id_smap: Dict[str, int]
+    __building_smap_c: int
+    __building_smap: Dict[str, int]
+    __channel_id_subst_map_c: int
+    __channel_id_subst_map: Dict[str, int]
+    __creator_id_smap_c: int
+    __creator_id_smap: Dict[str, int]
+    __org_unit_smap_c: int
+    __org_unit_smap: Dict[str, int]
+    __team_id_smap_c: int
+    __team_id_smap: Dict[str, int]
+    __user_id_smap_c: int
+    __user_id_smap: Dict[str, int]
 
     def __init__(self, data_file_path: str):
         self.channels = []
@@ -43,18 +43,18 @@ class Preprocessor:
         self.users = {}
 
         # We start id counters with 1 where 0 is reserved for external persons
-        self.building_smap_c = 1
-        self.building_smap: Dict[str, int] = {}
-        self.channel_id_subst_map_c = 0
-        self.channel_id_subst_map: Dict[str, int] = {}
-        self.creator_id_smap_c = 0
-        self.creator_id_smap: Dict[str, int] = {}
-        self.org_unit_smap_c = 1
-        self.org_unit_smap: Dict[str, int] = {}
-        self.team_id_smap_c = 0
-        self.team_id_smap: Dict[str, int] = {}
-        self.user_id_smap_c = 0
-        self.user_id_smap: Dict[str, int] = {}
+        self.__building_smap_c = 1
+        self.__building_smap: Dict[str, int] = {}
+        self.__channel_id_subst_map_c = 0
+        self.__channel_id_subst_map: Dict[str, int] = {}
+        self.__creator_id_smap_c = 0
+        self.__creator_id_smap: Dict[str, int] = {}
+        self.__org_unit_smap_c = 1
+        self.__org_unit_smap: Dict[str, int] = {}
+        self.__team_id_smap_c = 0
+        self.__team_id_smap: Dict[str, int] = {}
+        self.__user_id_smap_c = 0
+        self.__user_id_smap: Dict[str, int] = {}
 
     def load_all(self) -> None:
         """
@@ -98,14 +98,14 @@ class Preprocessor:
         channels = self.contents["channels"]
 
         for channel in channels:
-            (self.channel_id_subst_map, channel_id, self.channel_id_subst_map_c) = self.__subst(self.channel_id_subst_map,
-                                                                                                channel["ChannelId"], self.channel_id_subst_map_c)
+            (self.__channel_id_subst_map, channel_id, self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
+                                                                                                    channel["ChannelId"], self.__channel_id_subst_map_c)
 
-            (self.team_id_smap, team_id, self.team_id_smap_c) = self.__subst(
-                self.team_id_smap, channel["TeamId"], self.team_id_smap_c)
+            (self.__team_id_smap, team_id, self.__team_id_smap_c) = self.__subst(
+                self.__team_id_smap, channel["TeamId"], self.__team_id_smap_c)
 
-            (self.creator_id_smap, creator_id, self.creator_id_smap_c) = self.__subst(
-                self.creator_id_smap, channel["CreatorId"], self.creator_id_smap_c)
+            (self.__creator_id_smap, creator_id, self.__creator_id_smap_c) = self.__subst(
+                self.__creator_id_smap, channel["CreatorId"], self.__creator_id_smap_c)
 
             self.channels.append(Channel(
                 channel_id=channel_id,
@@ -127,11 +127,11 @@ class Preprocessor:
         channel_members = self.contents["channel_members"]
 
         for channel_member in channel_members:
-            (self.channel_id_subst_map, channel_id, self.channel_id_subst_map_c) = self.__subst(self.channel_id_subst_map,
-                                                                                                channel_member["ChannelId"], self.channel_id_subst_map_c)
+            (self.__channel_id_subst_map, channel_id, self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
+                                                                                                    channel_member["ChannelId"], self.__channel_id_subst_map_c)
 
-            (self.user_id_smap, user_id, self.user_id_smap_c) = self.__subst(
-                self.user_id_smap, channel_member["UserId"], self.user_id_smap_c)
+            (self.__user_id_smap, user_id, self.__user_id_smap_c) = self.__subst(
+                self.__user_id_smap, channel_member["UserId"], self.__user_id_smap_c)
 
             self.channel_members.append(ChannelMember(
                 channel_id=channel_id,
@@ -147,11 +147,11 @@ class Preprocessor:
         channel_member_histories = self.contents["channel_member_history"]
 
         for channel_member_history in channel_member_histories:
-            (self.channel_id_subst_map, channel_id, self.channel_id_subst_map_c) = self.__subst(self.channel_id_subst_map,
-                                                                                                channel_member_history["ChannelId"], self.channel_id_subst_map_c)
+            (self.__channel_id_subst_map, channel_id, self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
+                                                                                                    channel_member_history["ChannelId"], self.__channel_id_subst_map_c)
 
-            (self.user_id_smap, user_id, self.user_id_smap_c) = self.__subst(
-                self.user_id_smap, channel_member_history["UserId"], self.user_id_smap_c)
+            (self.__user_id_smap, user_id, self.__user_id_smap_c) = self.__subst(
+                self.__user_id_smap, channel_member_history["UserId"], self.__user_id_smap_c)
 
             self.channel_member_histories.append(ChannelMemberHistoryEntry(
                 channel_id=channel_id,
@@ -169,11 +169,11 @@ class Preprocessor:
         team_members = self.contents["team_members"]
 
         for team_member in team_members:
-            (self.team_id_smap, team_id, self.team_id_smap_c) = self.__subst(
-                self.team_id_smap, team_member["TeamId"], self.team_id_smap_c)
+            (self.__team_id_smap, team_id, self.__team_id_smap_c) = self.__subst(
+                self.__team_id_smap, team_member["TeamId"], self.__team_id_smap_c)
 
-            (self.user_id_smap, user_id, self.user_id_smap_c) = self.__subst(
-                self.user_id_smap, team_member["UserId"], self.user_id_smap_c)
+            (self.__user_id_smap, user_id, self.__user_id_smap_c) = self.__subst(
+                self.__user_id_smap, team_member["UserId"], self.__user_id_smap_c)
 
             self.team_members.append(TeamMember(
                 team_id=team_id,
@@ -188,7 +188,7 @@ class Preprocessor:
         users = self.contents["users"]
 
         for user in users:
-            user_id = self.user_id_smap.get(user)
+            user_id = self.__user_id_smap.get(user)
 
             # Since some users might be associated with CERN, but do not reside
             # at CERN, they neither have 'building' or 'orgUnit' values. Hence,
@@ -196,11 +196,11 @@ class Preprocessor:
             if user_id is None:
                 self.users[user_id] = UserData(building=0, org_unit=0)
             else:
-                (self.building_smap, building_id, self.building_smap_c) = self.__subst(
-                    self.building_smap, users[user]["building"], self.building_smap_c)
+                (self.__building_smap, building_id, self.__building_smap_c) = self.__subst(
+                    self.__building_smap, users[user]["building"], self.__building_smap_c)
 
-                (self.org_unit_smap, org_unit_id, self.org_unit_smap_c) = self.__subst(
-                    self.org_unit_smap, users[user]["orgUnit"], self.org_unit_smap_c)
+                (self.__org_unit_smap, org_unit_id, self.__org_unit_smap_c) = self.__subst(
+                    self.__org_unit_smap, users[user]["orgUnit"], self.__org_unit_smap_c)
 
                 self.users[user_id] = UserData(
                     building=building_id, org_unit=org_unit_id)
@@ -291,11 +291,11 @@ class Preprocessor:
         import gc
 
         del self.contents
-        del self.building_smap
-        del self.channel_id_subst_map
-        del self.creator_id_smap
-        del self.org_unit_smap
-        del self.team_id_smap
-        del self.user_id_smap
+        del self.__building_smap
+        del self.__channel_id_subst_map
+        del self.__creator_id_smap
+        del self.__org_unit_smap
+        del self.__team_id_smap
+        del self.__user_id_smap
 
         gc.collect()
