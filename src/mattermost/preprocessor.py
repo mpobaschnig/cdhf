@@ -21,6 +21,9 @@ class Preprocessor:
     teams: List[Team]
     users: Dict[int, UserData]
 
+    building_members: Dict[str, List[str]] = {}
+    org_unit_members: Dict[str, List[str]] = {}
+    
     __building_smap_c: int
     __building_smap: Dict[str, int]
     __channel_id_subst_map_c: int
@@ -74,6 +77,8 @@ class Preprocessor:
         self.add_channel_member_history_to_channels()
 
         self.find_team_channels_and_members()
+
+        self.find_building_members()
 
         self.cleanup()
 
@@ -283,6 +288,22 @@ class Preprocessor:
                 channels=channels,
                 team_members=team_members_map.get(team_id)
             ))
+
+    def find_building_members(self):
+        for (user_id, user_data) in self.users.items():
+            bm = self.building_members.get(user_data.building)
+
+            if bm is None:
+                self.building_members[user_data.building] = [user_id]
+            else:
+                self.building_members[user_data.building].append(user_id)
+
+            om = self.org_unit_members.get(user_data.org_unit)
+
+            if om is None:
+                self.org_unit_members[user_data.org_unit] = [user_id]
+            else:
+                self.org_unit_members[user_data.org_unit].append(user_id)
 
     def cleanup(self):
         """
