@@ -23,7 +23,7 @@ class Preprocessor:
 
     building_members: Dict[str, List[str]] = {}
     org_unit_members: Dict[str, List[str]] = {}
-    
+
     __building_smap_c: int
     __building_smap: Dict[str, int]
     __channel_id_subst_map_c: int
@@ -68,10 +68,11 @@ class Preprocessor:
         with open("input/mmdata.json") as f:
             self.contents = json.load(f)
 
+        self.load_teams()
+        self.load_team_members()
         self.load_channels()
         self.load_channel_members()
         self.load_channel_member_histories()
-        self.load_team_members()
         self.load_users()
 
         self.add_channel_member_history_to_channels()
@@ -123,6 +124,26 @@ class Preprocessor:
                 reactions_count=self.__add0(channel["ReactionsCount"]),
                 channel_members=[],
                 channel_member_history=[]
+            ))
+
+    def load_teams(self) -> None:
+        """
+        Load every team from json file.
+        """
+        teams = self.contents["teams"]
+
+        for team in teams:
+            (self.__team_id_smap, team_id, self.__team_id_smap_c) = self.__subst(
+                self.__team_id_smap, team["TeamId"], self.__team_id_smap_c)
+
+            self.teams.append(Team(
+                team_id=team_id,
+                create_at=self.__add0(team["CreateAt"]),
+                delete_at=self.__add0(team["DeleteAt"]),
+                invite_only=team["InviteOnly"],
+                email_domain_restricted=team["EmailDomainRestricted"],
+                channels=[],
+                team_members=[]
             ))
 
     def load_channel_members(self) -> None:
@@ -281,13 +302,12 @@ class Preprocessor:
 
             team_members_map[team_member.team_id] = team_member_list
 
-        # Create all teams
+        # Add to teams
         for (team_id, channels) in team_channels.items():
-            self.teams.append(Team(
-                team_id=team_id,
-                channels=channels,
-                team_members=team_members_map.get(team_id)
-            ))
+            for team in self.teams:
+                if team.team_id == team_id:
+                    team.team_members = team_members_map.get(team_id)
+                    team.channels = channels
 
     def find_building_members(self):
         for (user_id, user_data) in self.users.items():
