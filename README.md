@@ -22,7 +22,8 @@ In the end it should look like this:
 │        ├── channel_member_history_entry.py
 │        ├── preprocessor.py
 │        ├── team.py
-│        └── team_member.py
+│        ├── team_member.py
+│        └── user_data.py
 ├── input
 │  └── mmdata.json
 └── main.ipynb
