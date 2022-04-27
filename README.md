@@ -31,8 +31,7 @@ In the end it should look like this:
 Then include the files in the notebook from the root level
 
 ```python
-from cdhf.src.mattermost.prepr
-ocessor import Preprocessor
+from cdhf.src.mattermost.preprocessor import Preprocessor
 from cdhf.src.mattermost.channel import Channel
 from cdhf.src.mattermost.channel_member import ChannelMember
 from cdhf.src.mattermost.channel_member_history_entry import ChannelMemberHistoryEntry
