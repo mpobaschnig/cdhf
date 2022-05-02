@@ -12,6 +12,8 @@ from .user_data import UserData
 
 
 class Preprocessor:
+    data_file_path: Optional[str]
+
     contents: Optional[str]
 
     channels: List[Channel]
@@ -37,13 +39,17 @@ class Preprocessor:
     __user_id_smap_c: int
     __user_id_smap: Dict[str, int]
 
-    def __init__(self, data_file_path: str):
+    def __init__(self, data_file_path: str = None):
         self.channels = []
         self.channel_members = []
         self.channel_member_histories = []
         self.team_members = []
         self.teams = []
         self.users = {}
+
+        if data_file_path is None:
+            data_file_path = "input/mmdata.json"
+        self.data_file_path = data_file_path
 
         # We start id counters with 1 where 0 is reserved for external persons
         self.__building_smap_c = 1
@@ -65,7 +71,7 @@ class Preprocessor:
         then free the content memory.
         """
 
-        with open("input/mmdata.json") as f:
+        with open(self.data_file_path) as f:
             self.contents = json.load(f)
 
         self.load_teams()
