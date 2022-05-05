@@ -2,6 +2,8 @@
 
 ## Mattermost
 
+Request access for Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o)
+
 Clone the repository 
 
 ```
