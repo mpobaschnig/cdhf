@@ -14,30 +14,36 @@ Create the jupyter notebook file in the root level directory, and put `mmdata.js
 
 In the end it should look like this:
 ```
-.
-├── cdhf
-│  ├── README.md
-│  └── src
-│     └── mattermost
-│        ├── channel.py
-│        ├── channel_member.py
-│        ├── channel_member_history_entry.py
-│        ├── preprocessor.py
-│        ├── team.py
-│        ├── team_member.py
-│        └── user_data.py
-├── input
-│  └── mmdata.json
-└── main.ipynb
+..
+├── README.md
+└── src
+    ├── cd.py
+    ├── config.py
+    ├── example.ipynb
+    └── mattermost
+        ├── channel_member_history_entry.py
+        ├── channel_member.py
+        ├── channel.py
+        ├── preprocessor.py
+        ├── team_member.py
+        ├── team.py
+        └── user_data.py
 ```
 
-Then include the files in the notebook from the root level
+Then include this file in the notebook from the root level
 
 ```python
 from cdhf.src.mattermost.preprocessor import Preprocessor
-from cdhf.src.mattermost.channel import Channel
-from cdhf.src.mattermost.channel_member import ChannelMember
-from cdhf.src.mattermost.channel_member_history_entry import ChannelMemberHistoryEntry
-from cdhf.src.mattermost.team_member import TeamMember
-from cdhf.src.mattermost.team import Team
 ```
+
+Create the preprocessor to work with the data:
+
+```python
+p = Preprocessor()
+
+p.load_all()
+
+print(len(p.teams))
+```
+
+`cd.py`, `config.py` and `example.py` contain a simple community detection example using the framework.
