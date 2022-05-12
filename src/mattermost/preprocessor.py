@@ -112,14 +112,23 @@ class Preprocessor:
         channels = self.contents["channels"]
 
         for channel in channels:
-            (self.__channel_id_subst_map, channel_id, self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
-                                                                                                    channel["ChannelId"], self.__channel_id_subst_map_c)
+            (self.__channel_id_subst_map,
+             channel_id,
+             self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
+                                                           channel["ChannelId"],
+                                                           self.__channel_id_subst_map_c)
 
-            (self.__team_id_smap, team_id, self.__team_id_smap_c) = self.__subst(
-                self.__team_id_smap, channel["TeamId"], self.__team_id_smap_c)
+            (self.__team_id_smap,
+             team_id,
+             self.__team_id_smap_c) = self.__subst(self.__team_id_smap,
+                                                   channel["TeamId"],
+                                                   self.__team_id_smap_c)
 
-            (self.__creator_id_smap, creator_id, self.__creator_id_smap_c) = self.__subst(
-                self.__creator_id_smap, channel["CreatorId"], self.__creator_id_smap_c)
+            (self.__creator_id_smap,
+             creator_id,
+             self.__creator_id_smap_c) = self.__subst(self.__creator_id_smap,
+                                                      channel["CreatorId"],
+                                                      self.__creator_id_smap_c)
 
             self.channels.append(Channel(
                 channel_id=channel_id,
@@ -141,8 +150,11 @@ class Preprocessor:
         teams = self.contents["teams"]
 
         for team in teams:
-            (self.__team_id_smap, team_id, self.__team_id_smap_c) = self.__subst(
-                self.__team_id_smap, team["TeamId"], self.__team_id_smap_c)
+            (self.__team_id_smap,
+             team_id,
+             self.__team_id_smap_c) = self.__subst(self.__team_id_smap,
+                                                   team["TeamId"],
+                                                   self.__team_id_smap_c)
 
             self.teams.append(Team(
                 team_id=team_id,
@@ -161,11 +173,17 @@ class Preprocessor:
         channel_members = self.contents["channel_members"]
 
         for channel_member in channel_members:
-            (self.__channel_id_subst_map, channel_id, self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
-                                                                                                    channel_member["ChannelId"], self.__channel_id_subst_map_c)
+            (self.__channel_id_subst_map,
+             channel_id,
+             self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
+                                                           channel_member["ChannelId"],
+                                                           self.__channel_id_subst_map_c)
 
-            (self.__user_id_smap, user_id, self.__user_id_smap_c) = self.__subst(
-                self.__user_id_smap, channel_member["UserId"], self.__user_id_smap_c)
+            (self.__user_id_smap,
+             user_id,
+             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
+                                                   channel_member["UserId"],
+                                                   self.__user_id_smap_c)
 
             self.channel_members.append(ChannelMember(
                 channel_id=channel_id,
@@ -181,11 +199,17 @@ class Preprocessor:
         channel_member_histories = self.contents["channel_member_history"]
 
         for channel_member_history in channel_member_histories:
-            (self.__channel_id_subst_map, channel_id, self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
-                                                                                                    channel_member_history["ChannelId"], self.__channel_id_subst_map_c)
+            (self.__channel_id_subst_map,
+             channel_id,
+             self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
+                                                           channel_member_history["ChannelId"],
+                                                           self.__channel_id_subst_map_c)
 
-            (self.__user_id_smap, user_id, self.__user_id_smap_c) = self.__subst(
-                self.__user_id_smap, channel_member_history["UserId"], self.__user_id_smap_c)
+            (self.__user_id_smap,
+             user_id,
+             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
+                                                   channel_member_history["UserId"],
+                                                   self.__user_id_smap_c)
 
             self.channel_member_histories.append(ChannelMemberHistoryEntry(
                 channel_id=channel_id,
@@ -203,11 +227,17 @@ class Preprocessor:
         team_members = self.contents["team_members"]
 
         for team_member in team_members:
-            (self.__team_id_smap, team_id, self.__team_id_smap_c) = self.__subst(
-                self.__team_id_smap, team_member["TeamId"], self.__team_id_smap_c)
+            (self.__team_id_smap,
+             team_id,
+             self.__team_id_smap_c) = self.__subst(self.__team_id_smap,
+                                                   team_member["TeamId"],
+                                                   self.__team_id_smap_c)
 
-            (self.__user_id_smap, user_id, self.__user_id_smap_c) = self.__subst(
-                self.__user_id_smap, team_member["UserId"], self.__user_id_smap_c)
+            (self.__user_id_smap,
+             user_id,
+             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
+                                                   team_member["UserId"],
+                                                   self.__user_id_smap_c)
 
             self.team_members.append(TeamMember(
                 team_id=team_id,
