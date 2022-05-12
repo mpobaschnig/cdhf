@@ -413,6 +413,8 @@ class Preprocessor:
         del self.__creator_id_smap
         del self.__org_unit_smap
         del self.__team_id_smap
-        del self.__user_id_smap
 
         gc.collect()
+
+    def get_user_id_of_hash(self, hash: str) -> Optional[int]:
+        return self.__user_id_smap.get(hash)
