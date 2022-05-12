@@ -220,22 +220,34 @@ class Preprocessor:
         users = self.contents["users"]
 
         for user in users:
-            user_id = self.__user_id_smap.get(user)
+            (self.__user_id_smap,
+             user_id,
+             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
+                                                   user,
+                                                   self.__user_id_smap_c)
 
             # Since some users might be associated with CERN, but do not reside
             # at CERN, they neither have 'building' or 'orgUnit' values. Hence,
             # just treat them as 'external'.
-            if user_id is None:
-                self.users[user_id] = UserData(building=0, org_unit=0)
-            else:
-                (self.__building_smap, building_id, self.__building_smap_c) = self.__subst(
-                    self.__building_smap, users[user]["building"], self.__building_smap_c)
+            user_data: UserData = UserData(building=0, org_unit=0)
 
-                (self.__org_unit_smap, org_unit_id, self.__org_unit_smap_c) = self.__subst(
-                    self.__org_unit_smap, users[user]["orgUnit"], self.__org_unit_smap_c)
+            if users[user]["building"] != None:
+                (self.__building_smap,
+                 building_id,
+                 self.__building_smap_c) = self.__subst(self.__building_smap,
+                                                        users[user]["building"],
+                                                        self.__building_smap_c)
+                user_data.building = building_id
 
-                self.users[user_id] = UserData(
-                    building=building_id, org_unit=org_unit_id)
+            if users[user]["orgUnit"] != None:
+                (self.__org_unit_smap,
+                 org_unit_id,
+                 self.__org_unit_smap_c) = self.__subst(self.__org_unit_smap,
+                                                        users[user]["orgUnit"],
+                                                        self.__org_unit_smap_c)
+                user_data.org_unit = org_unit_id
+
+            self.users[user_id] = user_data
 
     def add_channel_member_history_to_channels(self):
         """
