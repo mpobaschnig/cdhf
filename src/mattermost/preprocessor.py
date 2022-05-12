@@ -14,7 +14,7 @@ from .user_data import UserData
 class Preprocessor:
     data_file_path: Optional[str]
 
-    contents: Optional[str]
+    __contents: Optional[str]
 
     channels: List[Channel]
     channel_members: List[ChannelMember]
@@ -72,24 +72,24 @@ class Preprocessor:
         """
 
         with open(self.data_file_path) as f:
-            self.contents = json.load(f)
+            self.__contents = json.load(f)
 
-        self.load_teams()
-        self.load_team_members()
-        self.load_channels()
-        self.load_channel_members()
-        self.load_channel_member_histories()
-        self.load_users()
+        self.__load_teams()
+        self.__load_team_members()
+        self.__load_channels()
+        self.__load_channel_members()
+        self.__load_channel_member_histories()
+        self.__load_users()
 
-        self.add_channel_member_history_to_channels()
+        self.__add_channel_member_history_to_channels()
 
-        self.find_team_channels_and_members()
+        self.__find_team_channels_and_members()
 
-        self.find_building_members()
+        self.__find_building_members()
 
-        self.add_remaining_users_user_data()
+        self.__add_remaining_users_user_data()
 
-        self.cleanup()
+        self.__cleanup()
 
     def __subst(self, map, old_id, c):
         new_id = map.get(old_id)
@@ -105,11 +105,11 @@ class Preprocessor:
         else:
             return value
 
-    def load_channels(self) -> None:
+    def __load_channels(self) -> None:
         """
         Load every channel from json file.
         """
-        channels = self.contents["channels"]
+        channels = self.__contents["channels"]
 
         for channel in channels:
             (self.__channel_id_subst_map,
@@ -143,11 +143,11 @@ class Preprocessor:
                 channel_member_history=[]
             ))
 
-    def load_teams(self) -> None:
+    def __load_teams(self) -> None:
         """
         Load every team from json file.
         """
-        teams = self.contents["teams"]
+        teams = self.__contents["teams"]
 
         for team in teams:
             (self.__team_id_smap,
@@ -166,11 +166,11 @@ class Preprocessor:
                 team_members=[]
             ))
 
-    def load_channel_members(self) -> None:
+    def __load_channel_members(self) -> None:
         """
         Load every channel member from json file.
         """
-        channel_members = self.contents["channel_members"]
+        channel_members = self.__contents["channel_members"]
 
         for channel_member in channel_members:
             (self.__channel_id_subst_map,
@@ -192,11 +192,11 @@ class Preprocessor:
                 mention_count=self.__add0(channel_member["MentionCount"])
             ))
 
-    def load_channel_member_histories(self) -> None:
+    def __load_channel_member_histories(self) -> None:
         """
         Load every channel member history from json file.
         """
-        channel_member_histories = self.contents["channel_member_history"]
+        channel_member_histories = self.__contents["channel_member_history"]
 
         for channel_member_history in channel_member_histories:
             (self.__channel_id_subst_map,
@@ -220,11 +220,11 @@ class Preprocessor:
 
         del channel_member_histories
 
-    def load_team_members(self) -> None:
+    def __load_team_members(self) -> None:
         """
         Load every team member from json file.
         """
-        team_members = self.contents["team_members"]
+        team_members = self.__contents["team_members"]
 
         for team_member in team_members:
             (self.__team_id_smap,
@@ -245,11 +245,11 @@ class Preprocessor:
                 delete_at=self.__add0(team_member["DeleteAt"])
             ))
 
-    def load_users(self) -> None:
+    def __load_users(self) -> None:
         """
         Load every user from json file.
         """
-        users = self.contents["users"]
+        users = self.__contents["users"]
 
         for user in users:
             (self.__user_id_smap,
@@ -281,7 +281,7 @@ class Preprocessor:
 
             self.users[user_id] = user_data
 
-    def add_channel_member_history_to_channels(self):
+    def __add_channel_member_history_to_channels(self):
         """
         Add the history of channel members joining/leaving
         to the respective channels.
@@ -302,7 +302,7 @@ class Preprocessor:
             channel.channel_member_history = channel_history_map.get(
                 channel.channel_id)
 
-    def find_team_channels_and_members(self):
+    def __find_team_channels_and_members(self):
         """
         Find every channel and team member related to each team,
         and add it to the team.
@@ -359,7 +359,7 @@ class Preprocessor:
                     team.team_members = team_members_map.get(team_id)
                     team.channels = channels
 
-    def find_building_members(self):
+    def __find_building_members(self):
         for (user_id, user_data) in self.users.items():
             bm = self.building_members.get(user_data.building)
 
@@ -375,7 +375,7 @@ class Preprocessor:
             else:
                 self.org_unit_members[user_data.org_unit].append(user_id)
 
-    def add_remaining_users_user_data(self):
+    def __add_remaining_users_user_data(self):
         """
         Since the 'users' JSON object only contains information about some users,
         add all other users that we have and treat them as external ones.
@@ -401,13 +401,13 @@ class Preprocessor:
                 self.users[channel_member_history.user_id] = UserData(building=0,
                                                                       org_unit=0)
 
-    def cleanup(self):
+    def __cleanup(self):
         """
         Release the memory of unneeded variables
         """
         import gc
 
-        del self.contents
+        del self.__contents
         del self.__building_smap
         del self.__channel_id_subst_map
         del self.__creator_id_smap
