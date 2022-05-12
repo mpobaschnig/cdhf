@@ -23,8 +23,8 @@ class Preprocessor:
     teams: List[Team]
     users: Dict[int, UserData]
 
-    building_members: Dict[str, List[str]] = {}
-    org_unit_members: Dict[str, List[str]] = {}
+    building_members: Dict[int, List[int]] = {}
+    org_unit_members: Dict[int, List[int]] = {}
 
     __building_smap_c: int
     __building_smap: Dict[str, int]
