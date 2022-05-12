@@ -85,7 +85,7 @@ class Preprocessor:
 
         self.__find_team_channels_and_members()
 
-        self.__find_building_members()
+        self.__find_building_and_org_unit_members()
 
         self.__add_remaining_users_user_data()
 
@@ -359,7 +359,7 @@ class Preprocessor:
                     team.team_members = team_members_map.get(team_id)
                     team.channels = channels
 
-    def __find_building_members(self):
+    def __find_building_and_org_unit_members(self):
         for (user_id, user_data) in self.users.items():
             bm = self.building_members.get(user_data.building)
 
