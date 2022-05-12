@@ -87,6 +87,8 @@ class Preprocessor:
 
         self.find_building_members()
 
+        self.add_remaining_users_user_data()
+
         self.cleanup()
 
     def __subst(self, map, old_id, c):
@@ -342,6 +344,32 @@ class Preprocessor:
                 self.org_unit_members[user_data.org_unit] = [user_id]
             else:
                 self.org_unit_members[user_data.org_unit].append(user_id)
+
+    def add_remaining_users_user_data(self):
+        """
+        Since the 'users' JSON object only contains information about some users,
+        add all other users that we have and treat them as external ones.
+        """
+        for team in self.teams:
+            for team_member in team.team_members:
+                if self.users.get(team_member.user_id) is None:
+                    self.users[team_member.user_id] = UserData(building=0,
+                                                               org_unit=0)
+            for channel in team.channels:
+                for channel_member in channel.channel_members:
+                    if self.users.get(channel_member.user_id) is None:
+                        self.users[channel_member.user_id] = UserData(building=0,
+                                                                      org_unit=0)
+
+        for channel_member in self.channel_members:
+            if self.users.get(channel_member.user_id) is None:
+                self.users[channel_member.user_id] = UserData(building=0,
+                                                              org_unit=0)
+
+        for channel_member_history in self.channel_member_histories:
+            if self.users.get(channel_member_history.user_id) is None:
+                self.users[channel_member_history.user_id] = UserData(building=0,
+                                                                      org_unit=0)
 
     def cleanup(self):
         """
