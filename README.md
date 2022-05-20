@@ -31,16 +31,34 @@ Dataset Link: CERN Anonymized Mattermost Data | [Zenodo](https://zenodo.org/reco
 ## Getting Started 🏁
 
 
-Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o)
-
-Clone the repository 
+### Clone the repository 
+---
 
 ```
 git clone https://github.com/mpobaschnig/cdhf
 ```
 
-Create the jupyter notebook (`undefined.ipyb`) file in the root level directory, and put `mmdata.json` in `input/` directory.
 
+### Retrieving the Dataset
+---
+Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o). To retrieve the dataset execute:
+```sh
+$ ./init.sh
+```
+Or, if you like using ```Make```:
+```sh
+$ make
+```
+Or, you can manually create the `input/` directory in the root folder, then download the [mmdata.json](https://zenodo.org/record/6319684/files/mattermost.json) into the `input` directory.
+
+### Jupyter Notebook
+---
+
+Create the jupyter notebook (`undefined.ipyb`) file in the root level directory.
+
+
+### Conclusion
+---
 In the end it should look like this:
 ```
 ..
