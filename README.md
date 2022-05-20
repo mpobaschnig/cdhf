@@ -10,7 +10,23 @@ Dataset License: ***CC BY-NC Creative Commons Attribution Non-Commercial Licence
 
 Dataset Link: CERN Anonymized Mattermost Data | [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o)
 
+```bibtex
+@dataset{jakovljevic_igor_2022_6319684,
+  author       = {Jakovljevic, Igor and
+                  Wagner, Andreas and
+                  Gütl, Christian and
+                  Pobaschnig, Martin and
+                  Mönnich, Adrian},
+  title        = {CERN Anonymized Mattermost Data},
+  month        = mar,
+  year         = 2022,
+  publisher    = {Zenodo},
+  version      = 1,
+  doi          = {10.5281/zenodo.6319684},
+  url          = {https://doi.org/10.5281/zenodo.6319684}
+}
 
+```
 
 ## Getting Started 🏁
 
@@ -119,7 +135,7 @@ If you happen to mention or use this project as part of one of your scientific w
 * Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A. Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability. In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022)
 
 
-```latex
+```bibtex
 @ARTICLE {,
     author  = "Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A.",
     title   = "Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability",
