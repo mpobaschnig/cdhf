@@ -116,7 +116,17 @@ If you happen to mention or use this project as part of one of your scientific w
 
 
 ## Latest publications 📚
-* Jakovljevic, I., Gütl, C., Wagner, A. & Nussbaumer A.(2022). Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability
+* Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A. Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability. In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022)
+
+
+```latex
+@ARTICLE {,
+    author  = "Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A.",
+    title   = "Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability",
+    journal = "In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022)",
+    year    = "2022"
+}
+```
 
 
 ## Acknowledgements 🙏
