@@ -28,19 +28,38 @@ Dataset Link: CERN Anonymized Mattermost Data | [Zenodo](https://zenodo.org/reco
 
 ```
 
+---
+
 ## Getting Started 🏁
 
 
-Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o)
+### Setup Repository 💻
+---
 
-Clone the repository 
+#### 1. Clone the repository 
+---
 
 ```
 git clone https://github.com/mpobaschnig/cdhf
 ```
 
-Create the jupyter notebook (`undefined.ipyb`) file in the root level directory, and put `mmdata.json` in `input/` directory.
 
+#### 2. Retrieving the Dataset
+---
+Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o). To retrieve the dataset execute:
+```sh
+$ ./init.sh
+```
+Or, you can manually create the `input/` directory in the root folder, then download the [mmdata.json](https://zenodo.org/record/6319684/files/mattermost.json) into the `input` directory.
+
+#### 3. Jupyter Notebook
+---
+
+Create the jupyter notebook (`undefined.ipyb`) file in the root level directory.
+
+
+#### 4. Conclusion
+---
 In the end it should look like this:
 ```
 ..
@@ -66,7 +85,7 @@ In the end it should look like this:
 ```
 
 ### Install Dependencies 💻
-___ 
+---
 
 #### 1. Install [Pipenv](https://pipenv.pypa.io/en/latest/)
 ---
@@ -103,7 +122,7 @@ $ pipenv install
 
 
 ### Working with the Framework and Jupyter Notebooks 💻
-___ 
+---
 
 Then include this file in the notebook from the root level
 
@@ -127,9 +146,14 @@ print(len(p.teams))
 
 TBD
 
+---
+
+
 ## Citation ✍️
+
 If you happen to mention or use this project as part of one of your scientific works, please cite the following paper: **TODO IARIA PAPER**
 
+---
 
 ## Latest publications 📚
 * Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A. Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability. In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022)
@@ -143,7 +167,23 @@ If you happen to mention or use this project as part of one of your scientific w
     year    = "2022"
 }
 ```
+---
 
+## Involved institutions 🏫
+Contributors from the following institutions were involved in the development of this project:
+* [CERN](https://home.cern/)
+* [Graz University of Technology](https://www.tugraz.at/home/)
+---
+
+## 	Visual Exploration & Analysis 👁️‍🗨️
+
+In case you would like to visually explore the CERN Mattermost dataset without any programming you can use [Collaboration Spotting X](https://github.com/aleksbobic/csx).
+
+It is a web-based visual network analytics application which includes various convenient features which enable exploration of network datasets on the fly. 
+
+To get started with exploring the CERN Mattermost dataset read the instructions of CSX.
+
+---
 
 ## Acknowledgements 🙏
 

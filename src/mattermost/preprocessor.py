@@ -360,6 +360,9 @@ class Preprocessor:
                     team.channels = channels
 
     def __find_building_and_org_unit_members(self):
+        """ Creates building and organisational membership objects
+        """
+
         for (user_id, user_data) in self.users.items():
             bm = self.building_members.get(user_data.building)
 
@@ -417,4 +420,12 @@ class Preprocessor:
         gc.collect()
 
     def get_user_id_of_hash(self, hash: str) -> Optional[int]:
+        """ Retrieves User Id from hashed string value
+
+        Args:
+            hash (str): Hashed User Id 
+
+        Returns:
+            Optional[int]: User ID
+        """
         return self.__user_id_smap.get(hash)
