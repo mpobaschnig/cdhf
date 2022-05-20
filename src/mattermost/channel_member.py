@@ -5,8 +5,7 @@ class ChannelMember:
     mention_count: int
 
     def __init__(self, channel_id: int, user_id: int, msg_count: int, mention_count: int):
-        """AI is creating summary for __init__
-
+        """
         Args:
             channel_id (int): Channel Identifier
             user_id (int): User Identifier
