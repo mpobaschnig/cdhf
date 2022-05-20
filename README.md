@@ -62,56 +62,24 @@ Create the jupyter notebook (`undefined.ipyb`) file in the root level directory.
 ---
 In the end it should look like this:
 ```
-..
-├── undefined.ipyb
-├── input
-    └── mmdata.json
+.
 ├── cdhf
-    ├── README.md
-    ├── Pipfile
-    ├── Pipfile.lock
-    └── src
-        ├── cd.py    
-        ├── config.py
-        ├── example.ipynb
-        └── mattermost
-            ├── channel_member_history_entry.py
-            ├── channel_member.py
-            ├── channel.py
-            ├── preprocessor.py
-            ├── team_member.py
-            ├── team.py
-            └── user_data.py
+│   ├── init.sh
+│   ├── LICENSE
+│   ├── README.md
+│   └── src
+│       └── mattermost
+│           ├── channel_member_history_entry.py
+│           ├── channel_member.py
+│           ├── channel.py
+│           ├── preprocessor.py
+│           ├── team_member.py
+│           ├── team.py
+│           └── user_data.py
+├── input
+│   └── mmdata.json
+└── undefined.ipynb
 ```
-
-### Install Dependencies 💻
----
-
-#### 1. Install [Pipenv](https://pipenv.pypa.io/en/latest/)
----
-If you already have Python and pip, you can easily install Pipenv into your home directory:
-
-```sh
-$ pip install --user pipenv
-```
-
-For more information visit [https://docs.pipenv.org/install/](https://docs.pipenv.org/install/).
-
-#### 2. Install Requirements
----
-
-Navigate to cdhf
-
-```sh
-$ cd cdhf
-```
-
-Install from Pipfile, if there is one:
-
-```sh
-$ pipenv install
-```
-
 
 ### Working with the Framework and Jupyter Notebooks 💻
 ---
@@ -131,8 +99,6 @@ p.load_all()
 
 print(len(p.teams))
 ```
-
-`cd.py`, `config.py` and `example.py` contain a simple community detection example using the framework.
 
 ## Documentation 🖨️
 
