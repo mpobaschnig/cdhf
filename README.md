@@ -45,10 +45,6 @@ Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record
 ```sh
 $ ./init.sh
 ```
-Or, if you like using ```Make```:
-```sh
-$ make
-```
 Or, you can manually create the `input/` directory in the root folder, then download the [mmdata.json](https://zenodo.org/record/6319684/files/mattermost.json) into the `input` directory.
 
 ### Jupyter Notebook
