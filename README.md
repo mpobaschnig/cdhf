@@ -48,7 +48,7 @@ git clone https://github.com/mpobaschnig/cdhf
 ---
 Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o). To retrieve the dataset execute:
 ```sh
-$ ./init.sh
+$ bash cdhf/init.sh
 ```
 Or, you can manually create the `input/` directory in the root folder, then download the [mmdata.json](https://zenodo.org/record/6319684/files/mattermost.json) into the `input` directory.
 
