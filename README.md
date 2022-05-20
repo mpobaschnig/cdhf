@@ -40,7 +40,7 @@ Dataset Link: CERN Anonymized Mattermost Data | [Zenodo](https://zenodo.org/reco
 ---
 
 ```
-git clone https://github.com/mpobaschnig/cdhf
+$ git clone https://github.com/mpobaschnig/cdhf
 ```
 
 
