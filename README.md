@@ -94,16 +94,8 @@ If you already have Python and pip, you can easily install Pipenv into your home
 ```sh
 $ pip install --user pipenv
 ```
-Or, if you’re using Fedora 28:
-```sh
-$ sudo dnf install pipenv
-```
 
-It’s possible to install Pipenv with Homebrew on MacOS, or with Linuxbrew on Linux systems. However, this is now discouraged, because updates to the brewed Python distribution will break Pipenv, and perhaps all virtual environments managed by it. You’ll then need to re-install Pipenv at least. If you want to give it a try despite this warning, use:
-
-```sh
-$ brew install pipenv
-```
+For more information visit [https://docs.pipenv.org/install/](https://docs.pipenv.org/install/).
 
 #### 2. Install Requirements
 ---
