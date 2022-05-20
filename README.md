@@ -28,6 +28,8 @@ Dataset Link: CERN Anonymized Mattermost Data | [Zenodo](https://zenodo.org/reco
 
 ```
 
+---
+
 ## Getting Started 🏁
 
 
@@ -157,7 +159,23 @@ If you happen to mention or use this project as part of one of your scientific w
     year    = "2022"
 }
 ```
+---
 
+## Involved institutions 🏫
+Contributors from the following institutions were involved in the development of this project:
+* [CERN](https://home.cern/)
+* [Graz University of Technology](https://www.tugraz.at/home/)
+---
+
+## 	Visual Exploration & Analysis 👁️‍🗨️
+
+In case you would like to visually explore the CERN Mattermost dataset without any programming you can use [Collaboration Spotting X](https://github.com/aleksbobic/csx).
+
+It is a web-based visual network analytics application which includes various convenient features which enable exploration of network datasets on the fly. 
+
+To get started with exploring the CERN Mattermost dataset read the instructions of CSX.
+
+---
 
 ## Acknowledgements 🙏
 
