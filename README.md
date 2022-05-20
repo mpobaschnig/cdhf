@@ -33,7 +33,10 @@ Dataset Link: CERN Anonymized Mattermost Data | [Zenodo](https://zenodo.org/reco
 ## Getting Started 🏁
 
 
-### Clone the repository 
+### Setup Repository 💻
+---
+
+#### 1. Clone the repository 
 ---
 
 ```
@@ -41,7 +44,7 @@ git clone https://github.com/mpobaschnig/cdhf
 ```
 
 
-### Retrieving the Dataset
+#### 2. Retrieving the Dataset
 ---
 Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o). To retrieve the dataset execute:
 ```sh
@@ -49,13 +52,13 @@ $ ./init.sh
 ```
 Or, you can manually create the `input/` directory in the root folder, then download the [mmdata.json](https://zenodo.org/record/6319684/files/mattermost.json) into the `input` directory.
 
-### Jupyter Notebook
+#### 3. Jupyter Notebook
 ---
 
 Create the jupyter notebook (`undefined.ipyb`) file in the root level directory.
 
 
-### Conclusion
+#### 4. Conclusion
 ---
 In the end it should look like this:
 ```
@@ -82,7 +85,7 @@ In the end it should look like this:
 ```
 
 ### Install Dependencies 💻
-___ 
+---
 
 #### 1. Install [Pipenv](https://pipenv.pypa.io/en/latest/)
 ---
@@ -119,7 +122,7 @@ $ pipenv install
 
 
 ### Working with the Framework and Jupyter Notebooks 💻
-___ 
+---
 
 Then include this file in the notebook from the root level
 
@@ -143,9 +146,14 @@ print(len(p.teams))
 
 TBD
 
+---
+
+
 ## Citation ✍️
+
 If you happen to mention or use this project as part of one of your scientific works, please cite the following paper: **TODO IARIA PAPER**
 
+---
 
 ## Latest publications 📚
 * Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A. Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability. In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022)
