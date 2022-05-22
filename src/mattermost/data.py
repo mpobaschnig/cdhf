@@ -34,14 +34,22 @@ class Data:
     __contents: Optional[str]
 
     channels: List[Channel]
+    """List of all channels."""
     channel_members: List[ChannelMember]
+    """List of all channel members."""
     channel_member_histories: List[ChannelMemberHistoryEntry]
+    """List of every channel member history event."""
     team_members: List[TeamMember]
+    """List of every team member."""
     teams: List[Team]
+    """List of all teams."""
     users: Dict[int, UserData]
+    """Dictionary of all users and their associated user data."""
 
     building_members: Dict[int, List[int]] = {}
+    """Dictionary that maps the building to its members."""
     org_unit_members: Dict[int, List[int]] = {}
+    """Dictionary that maps the organisational unit to its members."""
 
     __building_smap_c: int
     __building_smap: Dict[str, int]
@@ -88,8 +96,11 @@ class Data:
         self.__user_id_smap: Dict[str, int] = {}
 
     def load_all(self) -> None:
-        """Load everything from the content file into their variables, then free the content memory."""
+        """Load everything from the content file.
 
+        All hashed strings will be replaced with respective integer values to save memory.
+        Unneeded memory will be freed.
+        """
         with open(self.file_path) as f:
             self.__contents = json.load(f)
 
