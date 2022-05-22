@@ -28,6 +28,7 @@ from .user_data import UserData
 
 
 class Preprocessor:
+    """A class used for processing and holding the data set"""
     data_file_path: Optional[str]
 
     __contents: Optional[str]
@@ -56,6 +57,11 @@ class Preprocessor:
     __user_id_smap: Dict[str, int]
 
     def __init__(self, data_file_path: str = None):
+        """
+        Args:
+            data_file_path (str, optional): Path to data set file. 
+                If none, use default path. Defaults to None.
+        """
         self.channels = []
         self.channel_members = []
         self.channel_member_histories = []
@@ -108,6 +114,18 @@ class Preprocessor:
         self.__cleanup()
 
     def __subst(self, map: Dict[str, int], old_id: str, counter: int) -> Tuple[Dict[str, int], int, int]:
+        """Substitute values in map
+
+        Substitute old id key with value in map, or calculate new id in case the entry does not exist.
+
+        Args:
+            map (Dict[str, int]): Map which contains the substitution mapping
+            old_id (str): Id which should be replaced
+            counter (int): New id in case the entry does not already exist
+
+        Returns:
+            Tuple[Dict[str, int], int, int]: Tuple holding the map, new id and new counter value
+        """
         new_id = map.get(old_id)
         if new_id is None:
             new_id = counter
