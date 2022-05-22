@@ -119,12 +119,12 @@ class Preprocessor:
         Substitute old id key with value in map, or calculate new id in case the entry does not exist.
 
         Args:
-            map (Dict[str, int]): Map which contains the substitution mapping
-            old_id (str): Id which should be replaced
-            counter (int): New id in case the entry does not already exist
+            map (Dict[str, int]): Map which contains the substitution mapping.
+            old_id (str): Id which should be replaced.
+            counter (int): New id in case the entry does not already exist.
 
         Returns:
-            Tuple[Dict[str, int], int, int]: Tuple holding the map, new id and new counter value
+            Tuple[Dict[str, int], int, int]: Tuple holding the map, new id and new counter value.
         """
         new_id = map.get(old_id)
         if new_id is None:
@@ -428,12 +428,12 @@ class Preprocessor:
         gc.collect()
 
     def get_user_id_of_hash(self, hash: str) -> Optional[int]:
-        """Retrieves User Id from hashed string value
+        """Retrieves User Id from hashed string value.
 
         Args:
-            hash (str): Hashed User Id 
+            hash (str): Hashed user id.
 
         Returns:
-            Optional[int]: User ID
+            Optional[int]: User id.
         """
         return self.__user_id_smap.get(hash)

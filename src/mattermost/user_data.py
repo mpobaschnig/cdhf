@@ -16,8 +16,7 @@
 # along with this program.  If not, see <http: //www.gnu.org/licenses/>.
 
 class UserData:
-    """ Class Representing Basic User Informations
-    """
+    """Class representing basic user information"""
     building: int
     org_unit: int
 

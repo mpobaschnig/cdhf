@@ -22,8 +22,7 @@ from .team_member import TeamMember
 
 
 class Team:
-    """ Class Representation of Mattermost Team
-    """
+    """Class representation of Mattermost team."""
     team_id: int
     create_at: int
     delete_at: int
@@ -44,15 +43,14 @@ class Team:
                  team_members: List[TeamMember]) -> None:
         """
         Args:
-            team_id (int): Team Identifier
-            create_at (int): Created Timestamp
-            delete_at (int): Deleted Timestamp
-            invite_only (bool): Describes if users can join the team with invitaion or public
-            email_domain_restricted (bool): Describes if the team is restricted to an email domain or public
-            channels (List[Channel]): List of Channels that are part of the Mattermost Team
-            team_members (List[TeamMember]): Users that are assigned to the team
+            team_id (int): Team identifier.
+            create_at (int): Created timestamp.
+            delete_at (int): Deleted timestamp.
+            invite_only (bool): Describes if users can join the team with invitaion or public.
+            email_domain_restricted (bool): Describes if the team is restricted to an email domain or public.
+            channels (List[Channel]): List of channels that are part of the Mattermost team.
+            team_members (List[TeamMember]): Users that are assigned to the team.
         """
-
         self.team_id = team_id
         self.create_at = create_at
         self.delete_at = delete_at

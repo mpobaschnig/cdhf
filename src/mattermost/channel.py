@@ -22,8 +22,7 @@ from .channel_member_history_entry import ChannelMemberHistoryEntry
 
 
 class Channel:
-    """ Class Representing Channel Information
-    """
+    """Class representing channel information."""
     channel_id: int
     team_id: int
     creator_id: int
@@ -39,7 +38,6 @@ class Channel:
 
     def __init__(self, channel_id: int, team_id: int, creator_id: int, create_at: int, delete_at: int, total_msg_count: int, post_count: int, reactions_count: int, channel_members: List[ChannelMember], channel_member_history: List[ChannelMemberHistoryEntry]):
         """
-
         Args:
             channel_id (int): Channel Identifier
             team_id (int): Team Identifier
