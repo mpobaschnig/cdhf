@@ -88,10 +88,7 @@ class Preprocessor:
         self.__user_id_smap: Dict[str, int] = {}
 
     def load_all(self) -> None:
-        """
-        Load everything from the content file into their variables,
-        then free the content memory.
-        """
+        """Load everything from the content file into their variables, then free the content memory."""
 
         with open(self.data_file_path) as f:
             self.__contents = json.load(f)
@@ -134,9 +131,7 @@ class Preprocessor:
         return (map, new_id, counter)
 
     def __load_channels(self) -> None:
-        """
-        Load every channel from json file.
-        """
+        """Load every channel from json file."""
         channels = self.__contents["channels"]
 
         for channel in channels:
@@ -172,9 +167,7 @@ class Preprocessor:
             ))
 
     def __load_teams(self) -> None:
-        """
-        Load every team from json file.
-        """
+        """Load every team from json file."""
         teams = self.__contents["teams"]
 
         for team in teams:
@@ -195,9 +188,7 @@ class Preprocessor:
             ))
 
     def __load_channel_members(self) -> None:
-        """
-        Load every channel member from json file.
-        """
+        """Load every channel member from json file."""
         channel_members = self.__contents["channel_members"]
 
         for channel_member in channel_members:
@@ -221,9 +212,7 @@ class Preprocessor:
             ))
 
     def __load_channel_member_histories(self) -> None:
-        """
-        Load every channel member history from json file.
-        """
+        """Load every channel member history from json file."""
         channel_member_histories = self.__contents["channel_member_history"]
 
         for channel_member_history in channel_member_histories:
@@ -249,9 +238,7 @@ class Preprocessor:
         del channel_member_histories
 
     def __load_team_members(self) -> None:
-        """
-        Load every team member from json file.
-        """
+        """Load every team member from json file."""
         team_members = self.__contents["team_members"]
 
         for team_member in team_members:
@@ -274,9 +261,7 @@ class Preprocessor:
             ))
 
     def __load_users(self) -> None:
-        """
-        Load every user from json file.
-        """
+        """Load every user from json file."""
         users = self.__contents["users"]
 
         for user in users:
@@ -310,10 +295,7 @@ class Preprocessor:
             self.users[user_id] = user_data
 
     def __add_channel_member_history_to_channels(self):
-        """
-        Add the history of channel members joining/leaving
-        to the respective channels.
-        """
+        """Add the history of channel members joining/leaving to the respective channels."""
         # Map from channel_id to list of history entries
         channel_history_map: Dict[str, List[ChannelMemberHistoryEntry]] = {}
         for entry in self.channel_member_histories:
@@ -331,10 +313,7 @@ class Preprocessor:
                 channel.channel_id)
 
     def __find_team_channels_and_members(self):
-        """
-        Find every channel and team member related to each team,
-        and add it to the team.
-        """
+        """Find every channel and team member related to each team, and add it to the team."""
         # Create a dict that maps channel_id to members of it.
         channel_member_map: Dict[str, List[ChannelMember]] = {}
         for channel_member in self.channel_members:
@@ -388,8 +367,7 @@ class Preprocessor:
                     team.channels = channels
 
     def __find_building_and_org_unit_members(self):
-        """ Creates building and organisational membership objects
-        """
+        """Creates building and organisational membership objects."""
 
         for (user_id, user_data) in self.users.items():
             bm = self.building_members.get(user_data.building)
@@ -407,7 +385,8 @@ class Preprocessor:
                 self.org_unit_members[user_data.org_unit].append(user_id)
 
     def __add_remaining_users_user_data(self):
-        """
+        """Add remaining users of data set.
+
         Since the 'users' JSON object only contains information about some users,
         add all other users that we have and treat them as external ones.
         """
@@ -433,9 +412,7 @@ class Preprocessor:
                                                                       org_unit=0)
 
     def __cleanup(self):
-        """
-        Release the memory of unneeded variables
-        """
+        """Release the memory of unneeded variables."""
         import gc
 
         del self.__contents
@@ -448,7 +425,7 @@ class Preprocessor:
         gc.collect()
 
     def get_user_id_of_hash(self, hash: str) -> Optional[int]:
-        """ Retrieves User Id from hashed string value
+        """Retrieves User Id from hashed string value
 
         Args:
             hash (str): Hashed User Id 
