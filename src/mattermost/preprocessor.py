@@ -297,7 +297,7 @@ class Preprocessor:
 
             self.users[user_id] = user_data
 
-    def __add_channel_member_history_to_channels(self):
+    def __add_channel_member_history_to_channels(self) -> None:
         """Add the history of channel members joining/leaving to the respective channels."""
         # Map from channel_id to list of history entries
         channel_history_map: Dict[str, List[ChannelMemberHistoryEntry]] = {}
@@ -315,7 +315,7 @@ class Preprocessor:
             channel.channel_member_history = channel_history_map.get(
                 channel.channel_id)
 
-    def __find_team_channels_and_members(self):
+    def __find_team_channels_and_members(self) -> None:
         """Find every channel and team member related to each team, and add it to the team."""
         # Create a dict that maps channel_id to members of it.
         channel_member_map: Dict[str, List[ChannelMember]] = {}
@@ -369,7 +369,7 @@ class Preprocessor:
                     team.team_members = team_members_map.get(team_id)
                     team.channels = channels
 
-    def __find_building_and_org_unit_members(self):
+    def __find_building_and_org_unit_members(self) -> None:
         """Creates building and organisational membership objects."""
 
         for (user_id, user_data) in self.users.items():
@@ -387,7 +387,7 @@ class Preprocessor:
             else:
                 self.org_unit_members[user_data.org_unit].append(user_id)
 
-    def __add_remaining_users_user_data(self):
+    def __add_remaining_users_user_data(self) -> None:
         """Add remaining users of data set.
 
         Since the 'users' JSON object only contains information about some users,
@@ -414,7 +414,7 @@ class Preprocessor:
                 self.users[channel_member_history.user_id] = UserData(building=0,
                                                                       org_unit=0)
 
-    def __cleanup(self):
+    def __cleanup(self) -> None:
         """Release the memory of unneeded variables."""
         import gc
 
