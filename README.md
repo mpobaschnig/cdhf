@@ -109,7 +109,20 @@ TBD
 
 ## Citation ✍️
 
-If you happen to mention or use this project as part of one of your scientific works, please cite the following paper: **TODO IARIA PAPER**
+If you happen to mention or use this project as part of one of your scientific works, please cite the following paper: 
+
+* Jakovljevic, I., Pobaschnig, M., Gütl, C. and Wagner, A., 2022. Privacy Aware Identification of User Clusters in Large Organisations based on Anonymized Mattermost User and Channel Information. In: DATA ANALYTICS 2021, The Tenth International Conference on Data Analytics.
+
+```bibtex
+
+@inproceedings{DataAnalytics2022,
+  author  = { Jakovljevic, I., Pobaschnig, M., Gütl, C. AND Wagner, A. },
+  year    = { 2022 },
+  month   = { 11 },
+  title   = { Privacy Aware Identification of User Clusters in Large Organisations based on Anonymized Mattermost User and Channel Information }
+}
+
+```
 
 ---
 
@@ -118,12 +131,14 @@ If you happen to mention or use this project as part of one of your scientific w
 
 
 ```bibtex
+
 @ARTICLE {,
-    author  = "Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A.",
-    title   = "Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability",
-    journal = "In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022)",
-    year    = "2022"
+    author  = { Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A. },
+    title   = { Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability },
+    journal = { In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022) },
+    year    = { 2022 }
 }
+
 ```
 ---
 
