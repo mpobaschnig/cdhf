@@ -1,4 +1,4 @@
-# preprocessor.py
+# data.py
 #
 # Copyright 2022 Martin Pobaschnig
 #
@@ -27,9 +27,9 @@ from .team import Team
 from .user_data import UserData
 
 
-class Preprocessor:
+class Data:
     """A class used for processing and holding the data set"""
-    data_file_path: Optional[str]
+    file_path: Optional[str]
 
     __contents: Optional[str]
 
@@ -71,7 +71,7 @@ class Preprocessor:
 
         if data_file_path is None:
             data_file_path = "input/mmdata.json"
-        self.data_file_path = data_file_path
+        self.file_path = data_file_path
 
         # We start id counters with 1 where 0 is reserved for external persons
         self.__building_smap_c = 1
@@ -90,7 +90,7 @@ class Preprocessor:
     def load_all(self) -> None:
         """Load everything from the content file into their variables, then free the content memory."""
 
-        with open(self.data_file_path) as f:
+        with open(self.file_path) as f:
             self.__contents = json.load(f)
 
         self.__load_teams()

@@ -72,7 +72,7 @@ In the end it should look like this:
 │           ├── channel_member_history_entry.py
 │           ├── channel_member.py
 │           ├── channel.py
-│           ├── preprocessor.py
+│           ├── data.py
 │           ├── team_member.py
 │           ├── team.py
 │           └── user_data.py
@@ -87,17 +87,17 @@ In the end it should look like this:
 Then include this file in the notebook from the root level
 
 ```python
-from cdhf.src.mattermost.preprocessor import Preprocessor
+from cdhf.src.mattermost.data import Data
 ```
 
-Create the preprocessor to work with the data:
+Create the Data object to work with the data set:
 
 ```python
-p = Preprocessor()
+data = Data()
 
-p.load_all()
+data.load_all()
 
-print(len(p.teams))
+print(len(data.teams))
 ```
 
 ## Documentation 🖨️
