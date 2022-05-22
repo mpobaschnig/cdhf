@@ -17,7 +17,7 @@
 
 import json
 
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Tuple
 
 from .channel import Channel
 from .channel_member import ChannelMember
@@ -107,13 +107,13 @@ class Preprocessor:
 
         self.__cleanup()
 
-    def __subst(self, map, old_id, c):
+    def __subst(self, map: Dict[str, int], old_id: str, counter: int) -> Tuple[Dict[str, int], int, int]:
         new_id = map.get(old_id)
         if new_id is None:
-            new_id = c
+            new_id = counter
             map[old_id] = new_id
-            c += 1
-        return (map, new_id, c)
+            counter += 1
+        return (map, new_id, counter)
 
     def __add0(self, value) -> Optional[int]:
         if value is not None:
