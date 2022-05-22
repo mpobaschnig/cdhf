@@ -115,12 +115,6 @@ class Preprocessor:
             counter += 1
         return (map, new_id, counter)
 
-    def __add0(self, value) -> Optional[int]:
-        if value is not None:
-            return value + 0
-        else:
-            return value
-
     def __load_channels(self) -> None:
         """
         Load every channel from json file.
@@ -150,11 +144,11 @@ class Preprocessor:
                 channel_id=channel_id,
                 team_id=team_id,
                 creator_id=creator_id,
-                create_at=self.__add0(channel["CreateAt"]),
-                delete_at=self.__add0(channel["DeleteAt"]),
-                total_msg_count=self.__add0(channel["TotalMsgCount"]),
-                post_count=self.__add0(channel["PostCount"]),
-                reactions_count=self.__add0(channel["ReactionsCount"]),
+                create_at=channel["CreateAt"] or 0,
+                delete_at=channel["DeleteAt"] or 0,
+                total_msg_count=channel["TotalMsgCount"] or 0,
+                post_count=channel["PostCount"] or 0,
+                reactions_count=channel["ReactionsCount"] or 0,
                 channel_members=[],
                 channel_member_history=[]
             ))
@@ -174,8 +168,8 @@ class Preprocessor:
 
             self.teams.append(Team(
                 team_id=team_id,
-                create_at=self.__add0(team["CreateAt"]),
-                delete_at=self.__add0(team["DeleteAt"]),
+                create_at=team["CreateAt"] or 0,
+                delete_at=team["DeleteAt"] or 0,
                 invite_only=team["InviteOnly"],
                 email_domain_restricted=team["EmailDomainRestricted"],
                 channels=[],
@@ -204,8 +198,8 @@ class Preprocessor:
             self.channel_members.append(ChannelMember(
                 channel_id=channel_id,
                 user_id=user_id,
-                msg_count=self.__add0(channel_member["MsgCount"]),
-                mention_count=self.__add0(channel_member["MentionCount"])
+                msg_count=channel_member["MsgCount"] or 0,
+                mention_count=channel_member["MentionCount"] or 0
             ))
 
     def __load_channel_member_histories(self) -> None:
@@ -230,8 +224,8 @@ class Preprocessor:
             self.channel_member_histories.append(ChannelMemberHistoryEntry(
                 channel_id=channel_id,
                 user_id=user_id,
-                join_time=self.__add0(channel_member_history["JoinTime"]),
-                leave_time=self.__add0(channel_member_history["LeaveTime"])
+                join_time=channel_member_history["JoinTime"] or 0,
+                leave_time=channel_member_history["LeaveTime"] or 0
             ))
 
         del channel_member_histories
@@ -258,7 +252,7 @@ class Preprocessor:
             self.team_members.append(TeamMember(
                 team_id=team_id,
                 user_id=user_id,
-                delete_at=self.__add0(team_member["DeleteAt"])
+                delete_at=team_member["DeleteAt"] or 0
             ))
 
     def __load_users(self) -> None:
