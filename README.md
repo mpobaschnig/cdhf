@@ -132,7 +132,7 @@ If you happen to mention or use this project as part of one of your scientific w
 
 ```bibtex
 
-@ARTICLE {,
+@article{Data2022,
     author  = { Jakovljevic, I., Gütl, C., Wagner, A. and Nussbaumer, A. },
     title   = { Compiling Open Datasets in Context of Large Organizations while Protecting User Privacy and Guaranteeing Plausible Deniability },
     journal = { In Proceedings of the 11th International Conference on Data Science, Technology and Applications (DATA 2022) },
