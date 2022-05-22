@@ -36,7 +36,17 @@ class Channel:
     channel_members: List[ChannelMember]
     channel_member_history: List[ChannelMemberHistoryEntry]
 
-    def __init__(self, channel_id: int, team_id: int, creator_id: int, create_at: int, delete_at: int, total_msg_count: int, post_count: int, reactions_count: int, channel_members: List[ChannelMember], channel_member_history: List[ChannelMemberHistoryEntry]):
+    def __init__(self,
+                 channel_id: int,
+                 team_id: int,
+                 creator_id: int,
+                 create_at: int,
+                 delete_at: int,
+                 total_msg_count: int,
+                 post_count: int,
+                 reactions_count: int,
+                 channel_members: List[ChannelMember],
+                 channel_member_history: List[ChannelMemberHistoryEntry]):
         """
         Args:
             channel_id (int): Channel Identifier
@@ -48,7 +58,8 @@ class Channel:
             post_count (int): Total Channel Post Count
             reactions_count (int): Total CHannel Reactions Count
             channel_members (List[ChannelMember]): List of Channel Members
-            channel_member_history (List[ChannelMemberHistoryEntry]): List that contains information when users joined of left the Channel
+            channel_member_history (List[ChannelMemberHistoryEntry]): List that 
+                contains information when users joined of left the Channel
         """
         self.channel_id = channel_id
         self.team_id = team_id
