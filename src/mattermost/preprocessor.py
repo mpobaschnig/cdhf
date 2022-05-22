@@ -110,7 +110,10 @@ class Preprocessor:
 
         self.__cleanup()
 
-    def __subst(self, map: Dict[str, int], old_id: str, counter: int) -> Tuple[Dict[str, int], int, int]:
+    def __subst(self,
+                map: Dict[str, int],
+                old_id: str,
+                counter: int) -> Tuple[Dict[str, int], int, int]:
         """Substitute values in map
 
         Substitute old id key with value in map, or calculate new id in case the entry does not exist.
