@@ -64,6 +64,7 @@ In the end it should look like this:
 ```
 .
 ├── cdhf
+│   ├── __init__.py
 │   ├── init.sh
 │   ├── LICENSE
 │   ├── README.md
@@ -73,6 +74,7 @@ In the end it should look like this:
 │           ├── channel_member.py
 │           ├── channel.py
 │           ├── data.py
+│           ├── __init__.py
 │           ├── team_member.py
 │           ├── team.py
 │           └── user_data.py
@@ -87,7 +89,7 @@ In the end it should look like this:
 Then include this file in the notebook from the root level
 
 ```python
-from cdhf.src.mattermost.data import Data
+from cdhf import Data
 ```
 
 Create the Data object to work with the data set:
