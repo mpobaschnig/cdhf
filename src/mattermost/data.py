@@ -30,8 +30,10 @@ from .user_data import UserData
 class Data:
     """A class used for processing and holding the data set"""
     file_path: Optional[str]
+    """Path to the Mattermost JSON file."""
 
     __contents: Optional[str]
+    """Content of the Mattermost JSON file."""
 
     channels: List[Channel]
     """List of all channels."""
