@@ -97,11 +97,11 @@ class Data:
                 channel_id=channel["ChannelId"],
                 team_id=channel["TeamId"],
                 creator_id=channel["CreatorId"],
-                create_at=channel["CreateAt"] or 0,
-                delete_at=channel["DeleteAt"] or 0,
-                total_msg_count=channel["TotalMsgCount"] or 0,
-                post_count=channel["PostCount"] or 0,
-                reactions_count=channel["ReactionsCount"] or 0,
+                create_at=channel["CreateAt"],
+                delete_at=channel["DeleteAt"],
+                total_msg_count=channel["TotalMsgCount"],
+                post_count=channel["PostCount"],
+                reactions_count=channel["ReactionsCount"],
                 channel_members=[],
                 channel_member_history=[]
             ))
@@ -113,8 +113,8 @@ class Data:
         for team in teams:
             self.teams.append(Team(
                 team_id=team["TeamId"],
-                create_at=team["CreateAt"] or 0,
-                delete_at=team["DeleteAt"] or 0,
+                create_at=team["CreateAt"],
+                delete_at=team["DeleteAt"],
                 invite_only=team["InviteOnly"],
                 email_domain_restricted=team["EmailDomainRestricted"],
                 channels=[],
@@ -129,8 +129,8 @@ class Data:
             self.channel_members.append(ChannelMember(
                 channel_id=channel_member["ChannelId"],
                 user_id=channel_member["UserId"],
-                msg_count=channel_member["MsgCount"] or 0,
-                mention_count=channel_member["MentionCount"] or 0
+                msg_count=channel_member["MsgCount"],
+                mention_count=channel_member["MentionCount"]
             ))
 
     def __load_channel_member_histories(self) -> None:
@@ -141,8 +141,8 @@ class Data:
             self.channel_member_histories.append(ChannelMemberHistoryEntry(
                 channel_id=channel_member_history["ChannelId"],
                 user_id=channel_member_history["UserId"],
-                join_time=channel_member_history["JoinTime"] or 0,
-                leave_time=channel_member_history["LeaveTime"] or 0
+                join_time=channel_member_history["JoinTime"],
+                leave_time=channel_member_history["LeaveTime"]
             ))
 
     def __load_team_members(self) -> None:
@@ -153,7 +153,7 @@ class Data:
             self.team_members.append(TeamMember(
                 team_id=team_member["TeamId"],
                 user_id=team_member["UserId"],
-                delete_at=team_member["DeleteAt"] or 0
+                delete_at=team_member["DeleteAt"]
             ))
 
     def __load_users(self) -> None:
@@ -161,16 +161,8 @@ class Data:
         users = self.__contents["users"]
 
         for user in users:
-            # Since some users might be associated with CERN, but do not reside
-            # at CERN, they neither have 'building' or 'orgUnit' values. Hence,
-            # just treat them as 'external'.
-            user_data: UserData = UserData(building=0, org_unit=0)
-
-            if users[user]["building"] != None:
-                user_data.building = users[user]["building"]
-
-            if users[user]["orgUnit"] != None:
-                user_data.org_unit = users[user]["orgUnit"]
+            user_data: UserData = UserData(building=users[user]["building"],
+                                           org_unit=users[user]["orgUnit"])
 
             self.users[user] = user_data
 
@@ -273,20 +265,20 @@ class Data:
         for team in self.teams:
             for team_member in team.team_members:
                 if self.users.get(team_member.user_id) is None:
-                    self.users[team_member.user_id] = UserData(building=0,
-                                                               org_unit=0)
+                    self.users[team_member.user_id] = UserData(building="",
+                                                               org_unit="")
             for channel in team.channels:
                 for channel_member in channel.channel_members:
                     if self.users.get(channel_member.user_id) is None:
-                        self.users[channel_member.user_id] = UserData(building=0,
-                                                                      org_unit=0)
+                        self.users[channel_member.user_id] = UserData(building="",
+                                                                      org_unit="")
 
         for channel_member in self.channel_members:
             if self.users.get(channel_member.user_id) is None:
-                self.users[channel_member.user_id] = UserData(building=0,
-                                                              org_unit=0)
+                self.users[channel_member.user_id] = UserData(building="",
+                                                              org_unit="")
 
         for channel_member_history in self.channel_member_histories:
             if self.users.get(channel_member_history.user_id) is None:
-                self.users[channel_member_history.user_id] = UserData(building=0,
-                                                                      org_unit=0)
+                self.users[channel_member_history.user_id] = UserData(building="",
+                                                                      org_unit="")
