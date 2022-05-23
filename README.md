@@ -104,7 +104,7 @@ print(len(data.teams))
 
 ## Documentation 🖨️
 
-TBD
+API documentation is available at [https://mpobaschnig.github.io/cdhf/](https://mpobaschnig.github.io/cdhf/).
 
 ---
 
