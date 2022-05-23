@@ -43,26 +43,13 @@ class Data:
     """List of every team member."""
     teams: List[Team]
     """List of all teams."""
-    users: Dict[int, UserData]
+    users: Dict[str, UserData]
     """Dictionary of all users and their associated user data."""
 
-    building_members: Dict[int, List[int]] = {}
+    building_members: Dict[str, List[int]] = {}
     """Dictionary that maps the building to its members."""
-    org_unit_members: Dict[int, List[int]] = {}
+    org_unit_members: Dict[str, List[int]] = {}
     """Dictionary that maps the organisational unit to its members."""
-
-    __building_smap_c: int
-    __building_smap: Dict[str, int]
-    __channel_id_subst_map_c: int
-    __channel_id_subst_map: Dict[str, int]
-    __creator_id_smap_c: int
-    __creator_id_smap: Dict[str, int]
-    __org_unit_smap_c: int
-    __org_unit_smap: Dict[str, int]
-    __team_id_smap_c: int
-    __team_id_smap: Dict[str, int]
-    __user_id_smap_c: int
-    __user_id_smap: Dict[str, int]
 
     def __init__(self, data_file_path: str = None):
         """
@@ -81,26 +68,8 @@ class Data:
             data_file_path = "input/mmdata.json"
         self.file_path = data_file_path
 
-        # We start id counters with 1 where 0 is reserved for external persons
-        self.__building_smap_c = 1
-        self.__building_smap: Dict[str, int] = {}
-        self.__channel_id_subst_map_c = 0
-        self.__channel_id_subst_map: Dict[str, int] = {}
-        self.__creator_id_smap_c = 0
-        self.__creator_id_smap: Dict[str, int] = {}
-        self.__org_unit_smap_c = 1
-        self.__org_unit_smap: Dict[str, int] = {}
-        self.__team_id_smap_c = 0
-        self.__team_id_smap: Dict[str, int] = {}
-        self.__user_id_smap_c = 0
-        self.__user_id_smap: Dict[str, int] = {}
-
     def load_all(self) -> None:
-        """Load everything from the content file.
-
-        All hashed strings will be replaced with respective integer values to save memory.
-        Unneeded memory will be freed.
-        """
+        """Load everything from the content file."""
         with open(self.file_path) as f:
             self.__contents = json.load(f)
 
@@ -119,58 +88,15 @@ class Data:
 
         self.__add_remaining_users_user_data()
 
-        self.__cleanup()
-
-    def __subst(self,
-                map: Dict[str, int],
-                old_id: str,
-                counter: int) -> Tuple[Dict[str, int], int, int]:
-        """Substitute values in map
-
-        Substitute old id key with value in map, or calculate new id in case the entry does not exist.
-
-        Args:
-            map (Dict[str, int]): Map which contains the substitution mapping.
-            old_id (str): Id which should be replaced.
-            counter (int): New id in case the entry does not already exist.
-
-        Returns:
-            Tuple[Dict[str, int], int, int]: Tuple holding the map, new id and new counter value.
-        """
-        new_id = map.get(old_id)
-        if new_id is None:
-            new_id = counter
-            map[old_id] = new_id
-            counter += 1
-        return (map, new_id, counter)
-
     def __load_channels(self) -> None:
         """Load every channel from json file."""
         channels = self.__contents["channels"]
 
         for channel in channels:
-            (self.__channel_id_subst_map,
-             channel_id,
-             self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
-                                                           channel["ChannelId"],
-                                                           self.__channel_id_subst_map_c)
-
-            (self.__team_id_smap,
-             team_id,
-             self.__team_id_smap_c) = self.__subst(self.__team_id_smap,
-                                                   channel["TeamId"],
-                                                   self.__team_id_smap_c)
-
-            (self.__creator_id_smap,
-             creator_id,
-             self.__creator_id_smap_c) = self.__subst(self.__creator_id_smap,
-                                                      channel["CreatorId"],
-                                                      self.__creator_id_smap_c)
-
             self.channels.append(Channel(
-                channel_id=channel_id,
-                team_id=team_id,
-                creator_id=creator_id,
+                channel_id=channel["ChannelId"],
+                team_id=channel["TeamId"],
+                creator_id=channel["CreatorId"],
                 create_at=channel["CreateAt"] or 0,
                 delete_at=channel["DeleteAt"] or 0,
                 total_msg_count=channel["TotalMsgCount"] or 0,
@@ -185,14 +111,8 @@ class Data:
         teams = self.__contents["teams"]
 
         for team in teams:
-            (self.__team_id_smap,
-             team_id,
-             self.__team_id_smap_c) = self.__subst(self.__team_id_smap,
-                                                   team["TeamId"],
-                                                   self.__team_id_smap_c)
-
             self.teams.append(Team(
-                team_id=team_id,
+                team_id=team["TeamId"],
                 create_at=team["CreateAt"] or 0,
                 delete_at=team["DeleteAt"] or 0,
                 invite_only=team["InviteOnly"],
@@ -206,21 +126,9 @@ class Data:
         channel_members = self.__contents["channel_members"]
 
         for channel_member in channel_members:
-            (self.__channel_id_subst_map,
-             channel_id,
-             self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
-                                                           channel_member["ChannelId"],
-                                                           self.__channel_id_subst_map_c)
-
-            (self.__user_id_smap,
-             user_id,
-             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
-                                                   channel_member["UserId"],
-                                                   self.__user_id_smap_c)
-
             self.channel_members.append(ChannelMember(
-                channel_id=channel_id,
-                user_id=user_id,
+                channel_id=channel_member["ChannelId"],
+                user_id=channel_member["UserId"],
                 msg_count=channel_member["MsgCount"] or 0,
                 mention_count=channel_member["MentionCount"] or 0
             ))
@@ -230,47 +138,21 @@ class Data:
         channel_member_histories = self.__contents["channel_member_history"]
 
         for channel_member_history in channel_member_histories:
-            (self.__channel_id_subst_map,
-             channel_id,
-             self.__channel_id_subst_map_c) = self.__subst(self.__channel_id_subst_map,
-                                                           channel_member_history["ChannelId"],
-                                                           self.__channel_id_subst_map_c)
-
-            (self.__user_id_smap,
-             user_id,
-             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
-                                                   channel_member_history["UserId"],
-                                                   self.__user_id_smap_c)
-
             self.channel_member_histories.append(ChannelMemberHistoryEntry(
-                channel_id=channel_id,
-                user_id=user_id,
+                channel_id=channel_member_history["ChannelId"],
+                user_id=channel_member_history["UserId"],
                 join_time=channel_member_history["JoinTime"] or 0,
                 leave_time=channel_member_history["LeaveTime"] or 0
             ))
-
-        del channel_member_histories
 
     def __load_team_members(self) -> None:
         """Load every team member from json file."""
         team_members = self.__contents["team_members"]
 
         for team_member in team_members:
-            (self.__team_id_smap,
-             team_id,
-             self.__team_id_smap_c) = self.__subst(self.__team_id_smap,
-                                                   team_member["TeamId"],
-                                                   self.__team_id_smap_c)
-
-            (self.__user_id_smap,
-             user_id,
-             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
-                                                   team_member["UserId"],
-                                                   self.__user_id_smap_c)
-
             self.team_members.append(TeamMember(
-                team_id=team_id,
-                user_id=user_id,
+                team_id=team_member["TeamId"],
+                user_id=team_member["UserId"],
                 delete_at=team_member["DeleteAt"] or 0
             ))
 
@@ -279,34 +161,18 @@ class Data:
         users = self.__contents["users"]
 
         for user in users:
-            (self.__user_id_smap,
-             user_id,
-             self.__user_id_smap_c) = self.__subst(self.__user_id_smap,
-                                                   user,
-                                                   self.__user_id_smap_c)
-
             # Since some users might be associated with CERN, but do not reside
             # at CERN, they neither have 'building' or 'orgUnit' values. Hence,
             # just treat them as 'external'.
             user_data: UserData = UserData(building=0, org_unit=0)
 
             if users[user]["building"] != None:
-                (self.__building_smap,
-                 building_id,
-                 self.__building_smap_c) = self.__subst(self.__building_smap,
-                                                        users[user]["building"],
-                                                        self.__building_smap_c)
-                user_data.building = building_id
+                user_data.building = users[user]["building"]
 
             if users[user]["orgUnit"] != None:
-                (self.__org_unit_smap,
-                 org_unit_id,
-                 self.__org_unit_smap_c) = self.__subst(self.__org_unit_smap,
-                                                        users[user]["orgUnit"],
-                                                        self.__org_unit_smap_c)
-                user_data.org_unit = org_unit_id
+                user_data.org_unit = users[user]["orgUnit"]
 
-            self.users[user_id] = user_data
+            self.users[user] = user_data
 
     def __add_channel_member_history_to_channels(self) -> None:
         """Add the history of channel members joining/leaving to the respective channels."""
@@ -424,27 +290,3 @@ class Data:
             if self.users.get(channel_member_history.user_id) is None:
                 self.users[channel_member_history.user_id] = UserData(building=0,
                                                                       org_unit=0)
-
-    def __cleanup(self) -> None:
-        """Release the memory of unneeded variables."""
-        import gc
-
-        del self.__contents
-        del self.__building_smap
-        del self.__channel_id_subst_map
-        del self.__creator_id_smap
-        del self.__org_unit_smap
-        del self.__team_id_smap
-
-        gc.collect()
-
-    def get_user_id_of_hash(self, hash: str) -> Optional[int]:
-        """Retrieves User Id from hashed string value.
-
-        Args:
-            hash (str): Hashed user id.
-
-        Returns:
-            Optional[int]: User id.
-        """
-        return self.__user_id_smap.get(hash)

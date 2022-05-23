@@ -16,16 +16,16 @@
 # along with this program.  If not, see <http: //www.gnu.org/licenses/>.
 
 class ChannelMember:
-    channel_id: int
-    user_id: int
+    channel_id: str
+    user_id: str
     msg_count: int
     mention_count: int
 
-    def __init__(self, channel_id: int, user_id: int, msg_count: int, mention_count: int):
+    def __init__(self, channel_id: str, user_id: str, msg_count: int, mention_count: int):
         """
         Args:
-            channel_id (int): Channel identifier.
-            user_id (int): User identifier.
+            channel_id (str): Channel identifier.
+            user_id (str): User identifier.
             msg_count (int): Total message count of user with user_id in channel with channel_id.
             mention_count (int):  Total mentions of user with user_id in channel with channel_id.
         """

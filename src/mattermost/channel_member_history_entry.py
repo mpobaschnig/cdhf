@@ -19,16 +19,16 @@ from typing import Optional
 
 
 class ChannelMemberHistoryEntry:
-    channel_id: int
-    user_id: int
+    channel_id: str
+    user_id: str
     join_time: int
     leave_time: Optional[int]
 
-    def __init__(self, channel_id: int, user_id: int, join_time: int, leave_time: Optional[int]):
+    def __init__(self, channel_id: str, user_id: str, join_time: int, leave_time: Optional[int]):
         """
         Args:
-            channel_id (int): Channel identifier.
-            user_id (int): User identifier.
+            channel_id (str): Channel identifier.
+            user_id (str): User identifier.
             join_time (int): Timestamp when the user with user_id joined the channel with the channel_id.
             leave_time (Optional[int]): Timestamp when the user with user_id left the channel with the channel_id.
         """

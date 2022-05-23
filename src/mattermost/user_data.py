@@ -17,14 +17,14 @@
 
 class UserData:
     """Class representing basic user information"""
-    building: int
-    org_unit: int
+    building: str
+    org_unit: str
 
-    def __init__(self, building: int, org_unit: int) -> None:
+    def __init__(self, building: str, org_unit: str) -> None:
         """
         Args:
-            building (int): Users' Building Identifier
-            org_unit (int): Users' Organisational Identifier
+            building (str): Users' Building Identifier
+            org_unit (str): Users' Organisational Identifier
         """
         self.building = building
         self.org_unit = org_unit

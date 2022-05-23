@@ -23,7 +23,7 @@ from .team_member import TeamMember
 
 class Team:
     """Class representation of Mattermost team."""
-    team_id: int
+    team_id: str
     create_at: int
     delete_at: int
     invite_only: bool
@@ -34,7 +34,7 @@ class Team:
     team_members: List[TeamMember]
 
     def __init__(self,
-                 team_id: int,
+                 team_id: str,
                  create_at: int,
                  delete_at: int,
                  invite_only: bool,
@@ -43,7 +43,7 @@ class Team:
                  team_members: List[TeamMember]) -> None:
         """
         Args:
-            team_id (int): Team identifier.
+            team_id (str): Team identifier.
             create_at (int): Created timestamp.
             delete_at (int): Deleted timestamp.
             invite_only (bool): Describes if users can join the team with invitaion or public.

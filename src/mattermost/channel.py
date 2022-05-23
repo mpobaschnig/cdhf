@@ -23,9 +23,9 @@ from .channel_member_history_entry import ChannelMemberHistoryEntry
 
 class Channel:
     """Class representing channel information."""
-    channel_id: int
-    team_id: int
-    creator_id: int
+    channel_id: str
+    team_id: str
+    creator_id: str
     create_at: int
     delete_at: int
     total_msg_count: int
@@ -37,9 +37,9 @@ class Channel:
     channel_member_history: List[ChannelMemberHistoryEntry]
 
     def __init__(self,
-                 channel_id: int,
-                 team_id: int,
-                 creator_id: int,
+                 channel_id: str,
+                 team_id: str,
+                 creator_id: str,
                  create_at: int,
                  delete_at: int,
                  total_msg_count: int,
@@ -49,9 +49,9 @@ class Channel:
                  channel_member_history: List[ChannelMemberHistoryEntry]):
         """
         Args:
-            channel_id (int): Channel Identifier
-            team_id (int): Team Identifier
-            creator_id (int): Creator User Identifier
+            channel_id (str): Channel Identifier
+            team_id (str): Team Identifier
+            creator_id (str): Creator User Identifier
             create_at (int): Created Timestamp
             delete_at (int): Deleted Timestamp
             total_msg_count (int): Total Channel Message Count
