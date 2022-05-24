@@ -17,7 +17,7 @@
 
 import json
 
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Optional
 
 from .channel import Channel
 from .channel_member import ChannelMember
@@ -39,7 +39,7 @@ class Data:
     """List of all channels."""
     channel_members: List[ChannelMember]
     """List of all channel members."""
-    channel_member_histories: List[ChannelMemberHistoryEntry]
+    channel_member_history: List[ChannelMemberHistoryEntry]
     """List of every channel member history event."""
     team_members: List[TeamMember]
     """List of every team member."""
@@ -53,22 +53,19 @@ class Data:
     org_unit_members: Dict[str, List[int]] = {}
     """Dictionary that maps the organisational unit to its members."""
 
-    def __init__(self, data_file_path: str = None):
+    def __init__(self, file_path: str):
         """
         Args:
-            data_file_path (str, optional): Path to data set file. 
-                If none, use default path. Defaults to None.
+            file_path (str): Path to Mattermost data set JSON file.
         """
         self.channels = []
         self.channel_members = []
-        self.channel_member_histories = []
+        self.channel_member_history = []
         self.team_members = []
         self.teams = []
         self.users = {}
 
-        if data_file_path is None:
-            data_file_path = "input/mmdata.json"
-        self.file_path = data_file_path
+        self.file_path = file_path
 
     def load_all(self) -> None:
         """Load everything from the content file."""
@@ -83,11 +80,8 @@ class Data:
         self.__load_users()
 
         self.__add_channel_member_history_to_channels()
-
-        self.__find_team_channels_and_members()
-
+        self.__attach_team_channels_and_members()
         self.__find_building_and_org_unit_members()
-
         self.__add_remaining_users_user_data()
 
     def __load_channels(self) -> None:
@@ -140,7 +134,7 @@ class Data:
         channel_member_histories = self.__contents["channel_member_history"]
 
         for channel_member_history in channel_member_histories:
-            self.channel_member_histories.append(ChannelMemberHistoryEntry(
+            self.channel_member_history.append(ChannelMemberHistoryEntry(
                 channel_id=channel_member_history["ChannelId"],
                 user_id=channel_member_history["UserId"],
                 join_time=channel_member_history["JoinTime"],
@@ -163,100 +157,59 @@ class Data:
         users = self.__contents["users"]
 
         for user in users:
-            user_data: UserData = UserData(building=users[user]["building"],
-                                           org_unit=users[user]["orgUnit"])
-
-            self.users[user] = user_data
+            self.users[user] = UserData(building=users[user]["building"],
+                                        org_unit=users[user]["orgUnit"])
 
     def __add_channel_member_history_to_channels(self) -> None:
         """Add the history of channel members joining/leaving to the respective channels."""
-        # Map from channel_id to list of history entries
-        channel_history_map: Dict[str, List[ChannelMemberHistoryEntry]] = {}
-        for entry in self.channel_member_histories:
-            history_list = channel_history_map.get(entry.channel_id)
-
-            if history_list is None:
-                history_list = []
-
-            history_list.append(entry)
-
-            channel_history_map[entry.channel_id] = history_list
+        channel_history: Dict[str, List[ChannelMemberHistoryEntry]] = {}
+        for h_entry in self.channel_member_history:
+            h_list = channel_history.get(h_entry.channel_id, [])
+            h_list.append(h_entry)
+            channel_history[h_entry.channel_id] = h_list
 
         for channel in self.channels:
-            channel.channel_member_history = channel_history_map.get(
-                channel.channel_id)
+            h_list = channel_history.get(channel.channel_id, [])
+            channel.channel_member_history = h_list
 
-    def __find_team_channels_and_members(self) -> None:
-        """Find every channel and team member related to each team, and add it to the team."""
-        # Create a dict that maps channel_id to members of it.
-        channel_member_map: Dict[str, List[ChannelMember]] = {}
+    def __attach_team_channels_and_members(self) -> None:
+        """Attach channel members to channels and team members/channels to teams."""
+        channel_members: Dict[str, List[ChannelMember]] = {}
         for channel_member in self.channel_members:
-            channel_member_list = channel_member_map.get(
-                channel_member.channel_id)
+            cm_list = channel_members.get(channel_member.channel_id, [])
+            cm_list.append(channel_member)
+            channel_members[channel_member.channel_id] = cm_list
 
-            if channel_member_list is None:
-                channel_member_list = []
-
-            channel_member_list.append(channel_member)
-            channel_member_map[channel_member.channel_id] = channel_member_list
-
-        # Get all channels that belong to the teams
         team_channels: Dict[str, List[Channel]] = {}
         for channel in self.channels:
-            # Add the members to the channel
-            channel_members = channel_member_map.get(channel.channel_id)
+            cm_list = channel_members.get(channel.channel_id, [])
+            channel.channel_members = cm_list
 
-            # Some channels might not have any users in it
-            if channel_members is None:
-                channel_members = []
+            tc_list = team_channels.get(channel.team_id, [])
+            tc_list.append(channel)
+            team_channels[channel.team_id] = tc_list
 
-            channel.channel_members = channel_members
-
-            team_channel_list = team_channels.get(channel.team_id)
-
-            if team_channel_list is None:
-                team_channel_list = []
-
-            team_channel_list.append(channel)
-
-            team_channels[channel.team_id] = team_channel_list
-
-        # Find all members of each team, and create map of it
-        team_members_map: Dict[str, List[TeamMember]] = {}
+        team_members: Dict[str, List[TeamMember]] = {}
         for team_member in self.team_members:
-            team_member_list = team_members_map.get(team_member.team_id)
+            tm_list = team_members.get(team_member.team_id, [])
+            tm_list.append(team_member)
+            team_members[team_member.team_id] = tm_list
 
-            if team_member_list is None:
-                team_member_list = []
-
-            team_member_list.append(team_member)
-
-            team_members_map[team_member.team_id] = team_member_list
-
-        # Add to teams
-        for (team_id, channels) in team_channels.items():
-            for team in self.teams:
-                if team.team_id == team_id:
-                    team.team_members = team_members_map.get(team_id)
-                    team.channels = channels
+        for team in self.teams:
+            team.channels = team_channels.get(team.team_id, [])
+            team.team_members = team_members.get(team.team_id, [])
 
     def __find_building_and_org_unit_members(self) -> None:
         """Creates building and organisational membership objects."""
 
         for (user_id, user_data) in self.users.items():
-            bm = self.building_members.get(user_data.building)
+            m_list = self.building_members.get(user_data.building, [])
+            m_list.append(user_id)
+            self.building_members[user_data.building] = m_list
 
-            if bm is None:
-                self.building_members[user_data.building] = [user_id]
-            else:
-                self.building_members[user_data.building].append(user_id)
-
-            om = self.org_unit_members.get(user_data.org_unit)
-
-            if om is None:
-                self.org_unit_members[user_data.org_unit] = [user_id]
-            else:
-                self.org_unit_members[user_data.org_unit].append(user_id)
+            m_list = self.org_unit_members.get(user_data.org_unit, [])
+            m_list.append(user_id)
+            self.org_unit_members[user_data.org_unit] = m_list
 
     def __add_remaining_users_user_data(self) -> None:
         """Add remaining users of data set.
@@ -269,18 +222,12 @@ class Data:
                 if self.users.get(team_member.user_id) is None:
                     self.users[team_member.user_id] = UserData(building="",
                                                                org_unit="")
-            for channel in team.channels:
-                for channel_member in channel.channel_members:
-                    if self.users.get(channel_member.user_id) is None:
-                        self.users[channel_member.user_id] = UserData(building="",
-                                                                      org_unit="")
-
         for channel_member in self.channel_members:
             if self.users.get(channel_member.user_id) is None:
                 self.users[channel_member.user_id] = UserData(building="",
                                                               org_unit="")
 
-        for channel_member_history in self.channel_member_histories:
+        for channel_member_history in self.channel_member_history:
             if self.users.get(channel_member_history.user_id) is None:
                 self.users[channel_member_history.user_id] = UserData(building="",
                                                                       org_unit="")
