@@ -1,0 +1,32 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Pobaschnig"
+  given-names: "Martin"
+  orcid: "0000-0002-4077-6300"
+- family-names: "Jakovljevic"
+  given-names: "Igor"
+  orcid: "0000-0003-1893-9553"
+title: "CERN Data Handling Framework"
+version: 1.1
+doi: 10.5281/zenodo.6575935
+date-released: 2022-05-24
+url: "https://github.com/mpobaschnig/cdhf"
+preferred-citation:
+  type: conference-paper
+  authors:
+  - family-names: "Jakovljevic"
+    given-names: "Igor"
+    orcid: "0000-0003-1893-9553"
+  - family-names: "Pobaschnig"
+    given-names: "Martin"
+    orcid: "0000-0002-4077-6300"
+  - family-names: "Gütl"
+    given-names: "Christian"
+    orcid: "0000-0001-9589-1966"
+  - family-names: "Wagner"
+    given-names: "Andreas"
+    orcid: "0000-0001-9589-2635"
+  month: 11
+  title: "Privacy Aware Identification of User Clusters in Large Organisations based on Anonymized Mattermost User and Channel Information"
+  year: 2022
