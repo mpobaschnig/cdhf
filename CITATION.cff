@@ -1,0 +1,6 @@
+@inproceedings{DataAnalytics2022,
+  author  = { Jakovljevic, I., Pobaschnig, M., Gütl, C. AND Wagner, A. },
+  year    = { 2022 },
+  month   = { 11 },
+  title   = { Privacy Aware Identification of User Clusters in Large Organisations based on Anonymized Mattermost User and Channel Information }
+}
