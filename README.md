@@ -1,6 +1,6 @@
 # CERN Data Handling Framework
 
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6572538.svg)](https://doi.org/10.5281/zenodo.6572538)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6575935.svg)](https://doi.org/10.5281/zenodo.6575935)
 
 ## Introduction ☕️
 
