@@ -97,7 +97,7 @@ from cdhf import Data
 Create the Data object to work with the data set:
 
 ```python
-data = Data()
+data = Data("path/to/Mattermost/JSON/file")
 
 data.load_all()
 
