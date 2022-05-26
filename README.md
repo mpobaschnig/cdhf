@@ -35,74 +35,40 @@ Dataset Link: CERN Anonymized Mattermost Data | [Zenodo](https://zenodo.org/reco
 ## Getting Started 🏁
 
 
-### Setup Repository 💻
+### Setup 💻
 ---
 
-#### 1. Clone the repository 
+#### 1. Retrieving the Dataset
+---
+Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o).
+
+#### 2. Install cdhf from pypi
 ---
 
-```
-$ git clone https://github.com/mpobaschnig/cdhf
-```
+Install the cdhf package by
 
-
-#### 2. Retrieving the Dataset
----
-Retrieve Mattermost Data (`mmdata.json`) from [Zenodo](https://zenodo.org/record/6319684#.YnOMdi8Rr0o). To retrieve the dataset execute:
 ```sh
-$ bash cdhf/init.sh
-```
-Or, you can manually create the `input/` directory in the root folder, then download the [mmdata.json](https://zenodo.org/record/6319684/files/mattermost.json) into the `input` directory.
-
-#### 3. Jupyter Notebook
----
-
-Create the jupyter notebook (`undefined.ipyb`) file in the root level directory.
-
-
-#### 4. Conclusion
----
-In the end it should look like this:
-```
-.
-├── cdhf
-│   ├── __init__.py
-│   ├── init.sh
-│   ├── LICENSE
-│   ├── README.md
-│   └── src
-│       └── mattermost
-│           ├── channel_member_history_entry.py
-│           ├── channel_member.py
-│           ├── channel.py
-│           ├── data.py
-│           ├── __init__.py
-│           ├── team_member.py
-│           ├── team.py
-│           └── user_data.py
-├── input
-│   └── mmdata.json
-└── undefined.ipynb
+$ pip install cdhf
 ```
 
-### Working with the Framework and Jupyter Notebooks 💻
+#### 3. Import and use cdhf
 ---
 
-Then include this file in the notebook from the root level
+Include the cdhf package:
 
 ```python
-from cdhf import Data
+from cdhf.data import Data
 ```
 
-Create the Data object to work with the data set:
+Create the Data object to and load the data set:
 
 ```python
-data = Data("path/to/Mattermost/JSON/file")
+data = Data("path/to/mmdata.json/file")
 
 data.load_all()
-
-print(len(data.teams))
 ```
+
+You can find examples on how to work with the data at the [cdhf-examples](https://github.com/mpobaschnig/cdhf-examples) repository.
 
 ## Documentation 🖨️
 
